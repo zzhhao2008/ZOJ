@@ -96,7 +96,7 @@ blockquote>p{
     top: 0;
     overflow: auto;
     max-height: 99vh;
-    scrollbar-width: 2px;
+    /*scrollbar-width: 2px;*/
 }
 .right-pos::-webkit-scrollbar{
     width: 2px;
