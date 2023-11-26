@@ -1,7 +1,7 @@
 function initEditor(id="acecode",language="markdown") {
     //获取控件   id ：codeEditor
     editor = ace.edit("codeEditor");
-    theme = "github";
+    theme = "tomorrow";
     
     editor.setTheme("ace/theme/" + theme);
     editor.session.setMode("ace/mode/" + language);

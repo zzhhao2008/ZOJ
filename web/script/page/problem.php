@@ -122,7 +122,7 @@ if ($vis === 0) { //默认显示题目列表
                         document.getElementById('submitbtn').style.display='none';
                         ">提交答案</button>
                         <form method="post" style="display:none" id="submitarea">
-                            <?view::aceeditor("answer","cpp")?>
+                            <?view::aceeditor("answer","c_cpp")?>
                             <button type="submit" class="btn btn-primary">提交</button>
                         </form>
                     <?php endif; ?>
