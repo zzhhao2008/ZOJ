@@ -7,23 +7,23 @@
 			<a class="navbar-brand" href="/"><img decoding="async" src="/icon.jpg" alt="Logo" style="width:30px;"> ZZHCode</a>
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/contanct">交流</a>
+					<a class="nav-link active" id="contanctnaver" aria-current="page" href="/contanct">交流</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/problem">题目</a>
+					<a class="nav-link" id="problemnaver" href="/problem">题目</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/contest">比赛</a>
+					<a class="nav-link" id="contestnaver" href="/contest">比赛</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/practice">练习</a>
+					<a class="nav-link" id="practicenaver" href="/practice">练习</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/submissions">提交记录</a>
+					<a class="nav-link" id="submissionsnaver" href="/submissions">提交记录</a>
 				</li>
 				<?php if (user::is_superuser()) : ?>
 					<li class="nav-item">
-						<a class="nav-link" href="/user_manage">
+						<a class="nav-link" id='user_manage' href="/user_manage">
 							用户管理
 						</a>
 					</li>

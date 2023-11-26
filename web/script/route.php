@@ -24,8 +24,8 @@ Router::guest("contancting", "user/login");
 Router::guest("practice", "user/login");
 Router::guest("logup", "user/logup");
 Router::guest("submisson", "user/login");
-Router::login("submission", "user/login");
-Router::login("submissions", "user/login");
+Router::guest("submission", "user/login");
+Router::guest("submissions", "user/login");
 
 Router::admin("user_manage", "admin/user/manage");
 Router::admin("user_edit", "admin/user/edit");
