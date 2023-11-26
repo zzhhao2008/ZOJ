@@ -56,7 +56,7 @@ class view
         $viewimport['alert'] = "<div class='alert alert-$type' role='alert' id='$id'>
         $text" .
             //五秒后使用JS删除这个元素
-            "<script>setTimeout(function(){document.getElementById('$id').remove();},$currenttime);</script></div>" 
+            "<script>setTimeout(function(){document.getElementById('$id').remove();},$currenttime);</script></div>"
             . $viewimport['alert'];
     }
     public static function message($text, $title = '消息', $icon = "bell", $time = "刚刚")
@@ -102,7 +102,16 @@ class view
             $viewimport['css'] = "";
         }
     }
-    public static function B404(){
+    public static function B404()
+    {
         include includePage("error/404");
+    }
+    public static function aceeditor($outid='acecode',$language="markdown")
+    {
+        global $viewimport;
+        echo '<input type="hidden" id="'.$outid.'" name="'.$outid.'">
+        <pre id="codeEditor" class="ace_editor" style="min-height:320px"><s:textarea class="ace_text-input"   cssStyle="width:97.5%;height:320px;"/></pre>
+        ';
+        $viewimport['js']=$viewimport['js'].";\ninitEditor('$outid','$language');\n";
     }
 }

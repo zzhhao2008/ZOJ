@@ -8,6 +8,8 @@
 <script src="/static/bootstrap/5.1.3/js/bootstrap.js"></script>
 <script src="/static/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
 <script src="/static/js/view.js"></script>
+<script src="/static/js/src-min/ace.js"></script>
+<script src="/static/js/aceinit.js"></script>
 <style>
     #<?=Router::getUri()?>naver{
         border-bottom: 2px solid red;
