@@ -2,7 +2,7 @@
 // 定义一个nulla数组，用于存放空值
 define("nulla",array());
 // 定义一个notdata数组，用于存放需要忽略的文件
-$notdata=array(".","..","Thumbs.db");
+$notdata=array(".","..","Thumbs.db","0.hid");
 // 定义一个DB类
 class DB{
     // 定义一个静态方法，用于获取数据
@@ -67,7 +67,7 @@ class DB{
         $r=scandir($dir);
         foreach($r as $k=>$v){
             //去除.. . 系统文件 *.db *.hid(正则表达式)
-            if($v=="."||$v==".."||preg_match("/^.*\.db$/",$v)||preg_match("/^.*\.hid$/",$v)){
+            if($v==="."||$v===".."||$v==="0.hid"||preg_match("/^.*\.db$/",$v)||preg_match("/^.*\.hid$/",$v)){
                 //删除$r的该元素
                 continue;
             }else{

@@ -102,7 +102,7 @@ def monitor_process(process, dataid, max_memory=128, max_time=500):
 
 
 def judgeOne(judgedata):
-    os.mkdir("data")
+    os.mkdir("ctd")
     thissubmit = judgedata
     errs = ''
     if (thissubmit == {}):
@@ -189,7 +189,7 @@ def mainF():
         else:
             print(sub+"数据获取成功，开始评测:")
             res = judgeOne(thissubmit)
-            shutil.rmtree("data")
+            shutil.rmtree("ctd")
             #print(res)
             savurl = hostip+'judgeres?pass='+getnowkey()+"&status=" +\
                 res['status'] +\
@@ -204,8 +204,8 @@ def mainF():
 
 print("Juger开始运行，每秒查询一次评测记录")
 while True:
-    if os.path.exists("data"):
-        shutil.rmtree("data")
+    if os.path.exists("ctd"):
+        shutil.rmtree("ctd")
     mainF()
     # break
     time.sleep(1)
