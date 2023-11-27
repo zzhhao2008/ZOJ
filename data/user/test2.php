@@ -1,14 +1,12 @@
 <?php return array (
-  'nick' => 'zzh114514',
-  'password' => '202cb962ac59075b964b07152d234b70',
-  'llt' => 1700395620,
-  'power' => 2,
-  'rating' => '1500',
+  'nick' => 'zzh',
+  'password' => 'c4d038b4bed09fdb1471ef51ec3a32cd',
+  'llt' => 1701096130,
+  'power' => 1,
+  'rating' => 1500,
   'try' => 
   array (
-    'S1' => 0,
-    'C1' => 100,
-    '' => 0,
+    'P1' => '100',
   ),
   'contest' => 
   array (
@@ -18,5 +16,17 @@
   ),
   'email' => 'zzhhao20082@163.com',
   'about' => '',
-  'ban' => 0,
+  'dt' => 
+  array (
+    0 => 
+    array (
+      'time' => 1701092536,
+      'art' => '创建了题目 #P1的讨论版（P-3-P1-123456AbcA）',
+    ),
+    1 => 
+    array (
+      'time' => 1701092722,
+      'art' => '创建了题目 #P1的讨论版（P-4-P1-test2）',
+    ),
+  ),
 );?>

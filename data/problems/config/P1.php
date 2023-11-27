@@ -50,4 +50,5 @@
   'outputlimit' => 128,
   'pr' => 0,
   'hiddensubmission' => 0,
+  'opencode' => 1,
 );?>

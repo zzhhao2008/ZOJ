@@ -35,6 +35,7 @@ if ($_POST) {
     $thisp['ratingp'] = intval($_POST['ratingp']);
     $thisp['difficulty'] = intval($_POST['difficulty']);
     $thisp['hiddensubmission'] = intval($_POST['hiddensubmission']);
+    $thisp['opencode'] = intval($_POST['opencode']);
     //var_dump($thisp);
     problems::save($tid, $thisp);
 }
@@ -82,6 +83,10 @@ else :
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="ChanceSwitch" name="hiddensubmission" value=1 <?= $thisp['hiddensubmission'] ? "checked" : "" ?>>
                     <label class="form-check-label" for="ChanceSwitch">隐藏提交记录</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="ChanceSwitch" name="opencode" value=1 <?= $thisp['opencode'] ? "checked" : "" ?>>
+                    <label class="form-check-label" for="ChanceSwitch">开放答案</label>
                 </div>
                 <div class="">
                     <label for="pn" class="form-label">等级限制</label>

@@ -105,6 +105,8 @@ class view
     public static function B404()
     {
         include includePage("error/404");
+        view::import();
+        exit;
     }
 
     public static function aceeditor($code="", $language = "c_cpp",$rl=0,$outname="")

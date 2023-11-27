@@ -15,6 +15,7 @@ $emptycfg = array(
     array(),
     'email' => '',
     'about' => '',
+    'dt'=>array()
 );
 class user
 {
@@ -75,6 +76,11 @@ class user
     public static function change($key, $value, $savenow = 0): bool
     {
         $GLOBALS['userprofile'][$key] = $value;
+        return $savenow ? user::saveuserchange() : 1;
+    }
+    public static function change_Add($key, $value, $savenow = 0): bool
+    {
+        $GLOBALS['userprofile'][$key][] = $value;
         return $savenow ? user::saveuserchange() : 1;
     }
     public static function getMy($key)

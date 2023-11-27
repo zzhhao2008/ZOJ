@@ -29,7 +29,6 @@ view::header("交流"); ?>
             <th class="thint">#</th>
             <th class="mthint">题目ID</th>
             <th>标题</th>
-            <th>内容</th>
             <th>创建者</th>
             <th class="mthint">时间</th>
         </tr>
@@ -49,7 +48,7 @@ view::header("交流"); ?>
                 }
             }
             if ($_GET['time']) {
-                if (date("m-d",$item['createTime']) != $_GET['time']) {
+                if (date("m-d", $item['createTime']) != $_GET['time']) {
                     continue;
                 }
             }
@@ -58,7 +57,6 @@ view::header("交流"); ?>
                 <td class="thint"><?= $numid ?></td>
                 <td class="mthint"><?= $item['for'] ?></td>
                 <td><?= $item['title'] ?></td>
-                <td><?= $item['desc'] ?></td>
                 <td><?= $item['creator'] ?></td>
                 <td><?= date("m-d", $item['createTime']) ?></td>
             </tr>
@@ -67,6 +65,55 @@ view::header("交流"); ?>
 
     </tbody>
 </table>
-<? if ($numid === count($data)) echo "It Seems Like That There Is Nothing." ?>
-<a href="ccontanct?pid=<?=$_GET['pid']?>" class="btn btn-primary">创建一个</a>
+<?php
+if (user::is_superuser()||1) { 
+    $data = contanct::getContanctList_Private(1);
+$numid = count($data);
+    ?>
+<h4>隐藏</h4>
+    <table class="table table-hover">
+        <thead>
+            <tr class="table-warning">
+                <th class="thint">#</th>
+                <th class="mthint">题目ID</th>
+                <th>标题</th>
+                <th>创建者</th>
+                <th class="mthint">时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+
+            foreach ($data as $k => $item) :
+                if((!user::is_superuser())&&($item['creator']!=user::read()['name'])) continue;
+                if ($_GET['pid']) {
+                    if ($item['for'] != $_GET['pid']) {
+                        continue;
+                    }
+                }
+                if ($_GET['creator']) {
+                    if ($item['creator'] != $_GET['creator']) {
+                        continue;
+                    }
+                }
+                if ($_GET['time']) {
+                    if (date("m-d", $item['createTime']) != $_GET['time']) {
+                        continue;
+                    }
+                }
+            ?>
+                <tr onclick="window.location='/contancting?cid=<?= $item['id'] ?>'">
+                    <td class="thint"><?= $numid ?></td>
+                    <td class="mthint"><?= $item['for'] ?></td>
+                    <td><?= $item['title'] ?></td>
+                    <td><?= $item['creator'] ?></td>
+                    <td><?= date("m-d", $item['createTime']) ?></td>
+                </tr>
+            <?php $numid--;
+            endforeach; ?>
+
+        </tbody>
+    </table>
+<?php } ?>
+<a href="ccontanct?pid=<?= $_GET['pid'] ?>" class="btn btn-primary">创建一个</a>
 <?php view::foot();

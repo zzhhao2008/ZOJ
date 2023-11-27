@@ -38,13 +38,15 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-2 abox">
-        <div class=" problemjump">
-            <h4>题目跳转</h4>
-            <form action="/problem">
-                <input name="id" placeholder="题号">
-                <input type="submit" value="跳转" class="btn btn-danger">
-            </form>
+    <div class="col-sm-2">
+        <div class="abox">
+            <div class="problemjump">
+                <h4>题目跳转</h4>
+                <form action="/problem">
+                    <input name="id" placeholder="题号">
+                    <input type="submit" value="跳转" class="btn btn-danger">
+                </form>
+            </div>
         </div>
     </div>
     <div class="col-sm-10">
@@ -54,30 +56,32 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-8 abox">
-        <h4>活动</h4>
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="btn" data-bs-toggle="collapse" href="#collapseAct1">
-                        开发中
-                    </a>
-                </div>
-                <div id="collapseAct1" class="collapse show" data-bs-parent="#accordion">
-                    <div class="card-body">
-                        ABAB
+    <div class="col-sm-8">
+        <div class="abox">
+            <h4>活动</h4>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="btn" data-bs-toggle="collapse" href="#collapseAct1">
+                            开发中
+                        </a>
+                    </div>
+                    <div id="collapseAct1" class="collapse show" data-bs-parent="#accordion">
+                        <div class="card-body">
+                            ABAB
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseAct2">
-                        选项二
-                    </a>
-                </div>
-                <div id="collapseAct2" class="collapse" data-bs-parent="#accordion">
-                    <div class="card-body">
-                        #2 内容：菜鸟教程 -- 学的不仅是技术，更是梦想！！！
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseAct2">
+                            选项二
+                        </a>
+                    </div>
+                    <div id="collapseAct2" class="collapse" data-bs-parent="#accordion">
+                        <div class="card-body">
+                            #2 内容：菜鸟教程 -- 学的不仅是技术，更是梦想！！！
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,33 +90,9 @@
     <div class="col-sm-4">
         <div class="abox">
             <h4>公告</h4>
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header">
-                        <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
-                            用户须知
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
-                        <div class="card-body">
-                            123456
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
-                            FAQ
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-                        <div class="card-body">
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <ul>
+                <li><a class="text-danger" href="/contancting?cid=1-P1-test"><?=view::icon("exclamation-circle")?>必读</a></li>
+            </ul>
         </div>
     </div>
 </div>
@@ -135,9 +115,10 @@
     }, 1000);
 </script>
 <style>
-    h1{
+    h1 {
         font-weight: 300;
     }
+
     .clock {
         position: absolute;
         height: 100px;

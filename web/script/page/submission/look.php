@@ -47,10 +47,9 @@ view::header("提交记录-$sid");
 //如果是选择题
 if (
     !(
-        ($problemconfig['type'] === 'C' || $problemconfig['hiddsubmit'] === 1)
-        &&
-        ($Submissiondata['submitor'] !== user::read()['name'] && !user::is_superuser())
+        ($Submissiondata['submitor'] !== user::read()['name'] && !user::is_superuser())//不是管理员和提交者
     )
+    ||$problemconfig['opencode']===1
 ) :
 ?>
     <div>
