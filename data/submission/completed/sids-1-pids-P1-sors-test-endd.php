@@ -3,7 +3,11 @@
   'submitor' => 'test',
   'time' => 1701098042,
   'answer' => '123465',
-  'score' => 0,
+  'score' => '0',
   'id' => 1,
-  'status' => 'waiting',
+  'status' => 'CE',
+  'err' => 'ans.cpp:1:1: error: expected unqualified-id before numeric constant
+ 123465
+ ^
+',
 );?>

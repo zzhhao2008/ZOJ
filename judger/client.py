@@ -108,31 +108,31 @@ def judgeOne(judgedata):
     if (thissubmit == {}):
         return {'status': 'JudgementEmpty', 'score': 0}
     totalsco = 0
-    file_put_contents("data/ans.cpp", thissubmit['ans'])
+    file_put_contents("ctd/ans.cpp", thissubmit['ans'])
     dataid = 0
     # 编译ans.cpp，生成ans.exe
-    comps = os.system("cd data & g++ ans.cpp -o ans.exe 2> c.err >c.out")
+    comps = os.system("cd ctd & g++ ans.cpp -o ans.exe 2> c.err >c.out")
     # 如果编译失败，则打印CE
     if (comps != 0):
-        return {'status': 'CE', 'err': file_get_contents("data/c.err"),  'score': 0}
+        return {'status': 'CE', 'err': file_get_contents("ctd/c.err"),  'score': 0}
     # 否则，遍历获取的数据，写入文件
     else:
         
-        # 遍历thissubmit中的data，将in文件写入data/dataid.in，将out文件写入data/dataid.out，并执行ans.exe
+        # 遍历thissubmit中的data，将in文件写入ctd/dataid.in，将out文件写入ctd/dataid.out，并执行ans.exe
         for thisdata in thissubmit['data']:
-            file_put_contents("data/"+str(dataid)+".in", thisdata['in'])
+            file_put_contents("ctd/"+str(dataid)+".in", thisdata['in'])
 
-            # file_put_contents("data/"+str(dataid)+".stdout", thisdata['out'])
+            # file_put_contents("ctd/"+str(dataid)+".stdout", thisdata['out'])
 
-            file_put_contents("data/"+str(dataid)+".out", '')
+            file_put_contents("ctd/"+str(dataid)+".out", '')
 
             # 创建一个子进程，使用"cd data & ans.exe < "+str(dataid) +".in > "+str(dataid)+".out"
             # 创建子进程
             process = subprocess.Popen(
-                'data/ans.exe',
-                stdin=open("data/"+str(dataid) + ".in", "r"),
-                stdout=open("data/"+str(dataid) + ".out", "w"),
-                stderr=open("data/"+str(dataid) + ".err", "w")
+                'ctd/ans.exe',
+                stdin=open("ctd/"+str(dataid) + ".in", "r"),
+                stdout=open("ctd/"+str(dataid) + ".out", "w"),
+                stderr=open("ctd/"+str(dataid) + ".err", "w")
             )
 
             # 等待子进程完成
@@ -147,7 +147,7 @@ def judgeOne(judgedata):
             # 对比输出结果(文件：str(dataid)+".out")与标准结果（thisdata['out'])是否一致
             # 获取输出结果，忽略行末空格
             thisdata['out'] = thisdata['out'].strip()
-            userout = file_get_contents("data/"+str(dataid)+".out").strip()
+            userout = file_get_contents("ctd/"+str(dataid)+".out").strip()
             if (userout == thisdata['out']):
                 # print(thisdata)
                 totalsco += 100
