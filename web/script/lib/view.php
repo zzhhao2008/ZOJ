@@ -106,12 +106,25 @@ class view
     {
         include includePage("error/404");
     }
-    public static function aceeditor($outid='acecode',$language="markdown")
+
+    public static function aceeditor($code="", $language = "c_cpp",$rl=0,$outname="")
     {
+        $code = str_replace("`", "\`", $code);
         global $viewimport;
-        echo '<input type="hidden" id="'.$outid.'" name="'.$outid.'">
-        <pre id="codeEditor" class="ace_editor" style="min-height:320px"><s:textarea class="ace_text-input"   cssStyle="width:97.5%;height:320px;"/></pre>
-        ';
-        $viewimport['js']=$viewimport['js'].";\ninitEditor('$outid','$language');\n";
+        $id = 0;
+        if (!$viewimport['temp']['acecnt']) $viewimport['temp']['acecnt'] = 1;
+        else $id = $viewimport['temp']['acecnt']++;
+        if($outname==""){
+            $outname = "ace-$id";
+        }
+        echo <<<HTML
+        <input id="ace-$id" name="$outname" type="hidden">
+        <pre id='codeEditor{$id}' class="ace_editor" style="min-height:320px"><s:textarea class="ace_text-input"   cssStyle="width:97.5%;height:320px;"/></pre>
+        <script>
+        initEditor($id,'$language',$rl);
+        editors[$id].insert(`$code`);
+        </script>
+HTML;
+        return $id;
     }
 }

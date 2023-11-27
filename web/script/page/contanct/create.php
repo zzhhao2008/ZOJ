@@ -1,5 +1,7 @@
 <?php
-if($_POST['title']||$_POST['name'])
+if($_POST['title']||$_POST['name']){
+    var_dump($_POST);
+}
 ?>
 <?php view::header("开始交流-创建"); ?>
 <form class="needs-validation" method="POST">
@@ -15,7 +17,7 @@ if($_POST['title']||$_POST['name'])
         <div class="valid-feedback">OK！</div>
         <div class="invalid-feedback">请输入标题！</div>
     </div>
-    <?=view::aceeditor()?>
+    <?view::aceeditor("","markdown",0)?>
     <button type="submit" class="btn btn-primary">提交</button>
 </form>
 

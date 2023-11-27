@@ -55,7 +55,7 @@ if (
 ?>
     <div>
         <h3>用户答案</h3>
-        <pre class="bg-light"><?= htmlspecialchars($Submissiondata['answer'])  ?></pre>
+        <?view::aceeditor($Submissiondata['answer'],"c_cpp",1)?>
     </div>
     <div>
         <h3>评测详情</h3>
@@ -65,7 +65,7 @@ if (
                 echo "# " . $Submissiondata['dataid'] . ":<br>";
             }
             if ($Submissiondata['err']) {
-                echo str_replace("\n","<br>",htmlspecialchars($Submissiondata['err']));
+                echo view::aceeditor($Submissiondata['err'],"text",1) ;
             }
             ?>
         </div>

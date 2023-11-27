@@ -1,22 +1,34 @@
-function initEditor(id="acecode",language="markdown") {
+var editors = []
+function initEditor(id = 0, language = "markdown",rl=0) {
     //获取控件   id ：codeEditor
-    editor = ace.edit("codeEditor");
+    editors[id] = ace.edit("codeEditor"+id);
     theme = "tomorrow";
-    
-    editor.setTheme("ace/theme/" + theme);
-    editor.session.setMode("ace/mode/" + language);
+    editors[id].setTheme("ace/theme/" + theme);
+    editors[id].session.setMode("ace/mode/" + language);
     //字体大小
-    editor.setFontSize(15);
+    editors[id].setFontSize(15);
     //设置只读（true时只读，用于展示代码）
-    editor.setReadOnly(false);
+    editors[id].setReadOnly(rl);
     //自动换行,设置为off关闭
-    editor.setOption("wrap", "free");
+    editors[id].setOption("wrap", "free");
     //启用提示菜单
     ace.require("ace/ext/language_tools");
 
-    //启用Markdown预览
-    editor.getSession().on('change', function() {
-        document.getElementById(id).value =
-            editor.getValue();
-    });
+    if (!rl) {
+        editors[id].getSession().on('change', function () {
+            document.getElementById("ace-"+id).value =
+            editors[id].getValue();
+        });
+    }
+
 }
+
+function changeTheme(theme,id=0) {
+    editors[id].setTheme("ace/theme/" + theme);
+}
+function changeLanguage(language,id=0) {
+    editors[id].session.setMode("ace/mode/" + language);
+}
+function changeFontSize(size,id=0) {
+    editors[id].setFontSize(size);
+}   
