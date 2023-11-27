@@ -11,6 +11,7 @@ import os
 import subprocess
 from urllib.parse import quote
 import psutil
+import shutil
 
 # 定义主机IP地址
 hostip = "http://127.0.0.1/"
@@ -101,6 +102,7 @@ def monitor_process(process, dataid, max_memory=128, max_time=500):
 
 
 def judgeOne(judgedata):
+    os.mkdir("data")
     thissubmit = judgedata
     errs = ''
     if (thissubmit == {}):
@@ -187,6 +189,7 @@ def mainF():
         else:
             print(sub+"数据获取成功，开始评测:")
             res = judgeOne(thissubmit)
+            shutil.rmtree("data")
             #print(res)
             savurl = hostip+'judgeres?pass='+getnowkey()+"&status=" +\
                 res['status'] +\
@@ -201,6 +204,8 @@ def mainF():
 
 print("Juger开始运行，每秒查询一次评测记录")
 while True:
+    if os.path.exists("data"):
+        shutil.rmtree("data")
     mainF()
     # break
     time.sleep(1)
