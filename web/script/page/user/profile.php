@@ -61,13 +61,13 @@ $userconfig = user::read()['profile'];
     <li class="list-group-item list-group-item-light">
         <h5>动态</h5>
         <div>
-            <?php 
-            usort($userconfig['dt'],function($a,$b){
+            <?php
+            usort($userconfig['dt'], function ($a, $b) {
                 //按时间从大到小
-                return $b['time']-$a['time'];
+                return $b['time'] - $a['time'];
             });
-            foreach ($userconfig['dt'] as $v) { 
-                $date=date("Y-m-d H:i:s",$v['time']);
+            foreach ($userconfig['dt'] as $v) {
+                $date = date("Y-m-d H:i:s", $v['time']);
                 echo <<<HTML
 <div class="card">
     <div class="card-body">

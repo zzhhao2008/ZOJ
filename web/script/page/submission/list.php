@@ -70,25 +70,28 @@ view::header("提交记录");
         </div>
     </form>
 </div>
-<?php
+<hr>
+<div class="abox">
+    <?php
 
-//使用HTML-table展示数据（$showingsubmission）
-echo "<table class='table table-hover' >";
-echo "<tr class='table-secondary'><th>题目</th><th>提交者</th><th>提交时间</th><th>分数</th></tr>";
-foreach ($showingsubmission as $submission) {
-    $sdate = date("Y-m-d H:i:s", $submission['time']);
-    $color = problems::colorsolve($submission['score']);
-    echo "<tr onclick='location.href=\"/submission?sid={$submission['submissionid']}\"' class=\"table-$color\">
+    //使用HTML-table展示数据（$showingsubmission）
+    echo "<table class='table table-hover' >";
+    echo "<tr class='table-secondary'><th>题目</th><th>提交者</th><th>提交时间</th><th>分数</th></tr>";
+    foreach ($showingsubmission as $submission) {
+        $sdate = date("Y-m-d H:i:s", $submission['time']);
+        $color = problems::colorsolve($submission['score']);
+        echo "<tr onclick='location.href=\"/submission?sid={$submission['submissionid']}\"' class=\"table-$color\">
     <td>{$submission['problemtitle']}</td>
     <td>{$submission['submitor']}</td>
     <td>{$sdate}</td>
     <td>{$submission['score']}</td>
     </tr>";
-}
-echo "</table>";
-?>
-<div class="text-warning">
-    仅显示最近100条提交记录，等待评测以及不允许展示的提交记录除外
+    }
+    echo "</table>";
+    ?>
+    <div class="text-warning">
+        仅显示最近100条提交记录，等待评测以及不允许展示的提交记录除外
+    </div>
 </div>
 <?php //显示页脚
 view::foot();

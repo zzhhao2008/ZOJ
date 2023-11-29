@@ -1,15 +1,6 @@
 <div style="color: gray;" class="container footbar">
     <hr class="hr">
 
-    <div class="spinner-grow text-muted spinner-grow-sm"></div>
-    <div class="spinner-grow text-primary spinner-grow-sm"></div>
-    <div class="spinner-grow text-success spinner-grow-sm"></div>
-    <div class="spinner-grow text-info spinner-grow-sm"></div>
-    <div class="spinner-grow text-warning spinner-grow-sm"></div>
-    <div class="spinner-grow text-danger spinner-grow-sm"></div>
-    <div class="spinner-grow text-secondary spinner-grow-sm"></div>
-    <div class="spinner-grow text-dark spinner-grow-sm"></div>
-    <div class="spinner-grow text-light spinner-grow-sm"></div>
 </div>
 <style>
     .footbar {

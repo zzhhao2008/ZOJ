@@ -83,3 +83,4 @@ function getstatic($name)
 {
     return file_get_contents("static/$name");
 }
+$navitems=array("contanct","contest","submissions","problem","practice");

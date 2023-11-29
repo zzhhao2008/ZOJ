@@ -1,44 +1,62 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" style="background: #e3f2fd;;">
+<nav class="navbar fixed-top" style="background: #e3f2fd;">
 	<div class="container">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"><?= view::icon("list") ?></span>
+		<a class="navbar-brand" href="/">
+			<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
+			ZZHCode</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-			<a class="navbar-brand" href="/"><img decoding="async" src="/icon.jpg" alt="Logo" style="width:30px;"> ZZHCode</a>
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" id="contanctnaver" aria-current="page" href="/contanct">交流</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="problemnaver" href="/problem">题目</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="contestnaver" href="/contest">比赛</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="practicenaver" href="/practice">练习</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="submissionsnaver" href="/submissions">提交记录</a>
-				</li>
-				<?php if (user::is_superuser()) : ?>
+		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+				<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
+				<?= $title ?></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item">
-						<a class="nav-link" id='user_manage' href="/user_manage">
-							用户管理
-						</a>
+						<a class="nav-link active" id="contanctnaver" aria-current="page" href="/contanct"><?=view::icon("chat-dots-fill")?>交流</a>
 					</li>
-				<?php endif; ?>
-			</ul>
-
-			<form class="d-flex" role="search" action="/search">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="s">
-				<button class="btn btn-outline-success" type="submit">Go</button>
-			</form>
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="/profile"><?= view::icon("person-circle") ?>
-						<?= $GLOBALS['userprofile'] ? $GLOBALS['userprofile']['nick'] : "登录" ?></a></li>
-			</ul>
-
+					<li class="nav-item">
+						<a class="nav-link" id="problemnaver" href="/problem"><?=view::icon("list")?>题目</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="contestnaver" href="/contest"><?=view::icon("award")?>比赛</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="practicenaver" href="/practice"><?=view::icon("check2-all")?>练习</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="submissionsnaver" href="/submissions"><?=view::icon("record2-fill")?>提交记录</a>
+					</li>
+					<?php
+					if (!in_array(Router::getUri(), $navitems)) {
+					?>
+						<li class="nav-item">
+							<a class="nav-link active" id="<?= Router::getUri() ?>naver" href="#"><?= $title ?></a>
+						</li>
+					<?php } ?>
+					<?php if (user::is_superuser()) : ?>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								管理
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" id='user_manage' href="/user_manage">用户管理</a></li>
+							</ul>
+						</li>
+					<?php endif; ?>
+					<hr>
+					<li class="nav-item"><a class="nav-link" href="/profile"><?= view::icon("person-circle") ?>
+							<?= $GLOBALS['userprofile'] ? $GLOBALS['userprofile']['nick'] : "登录" ?></a></li>
+				</ul>
+				<hr>
+				<form class="d-flex" role="search" action="/search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="s">
+					<button class="btn btn-outline-success" type="submit">Go</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </nav>

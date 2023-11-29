@@ -6,7 +6,7 @@ Router::any("judgedetial", "api/judgedetial");
 Router::any("judgeres", "api/judgeres");
 
 Router::login("contest", "contest");
-Router::login("contanct", "contanct");
+Router::login("contanct", "contanct/list");
 Router::login("contancting", "contanct/show");
 Router::login("ccontanct", "contanct/create");
 Router::login("profile", "user/profile");

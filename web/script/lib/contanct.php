@@ -102,3 +102,70 @@ class contanct
         return $id;
     }
 }
+class contanct_zan{
+    public static function getData($cid){
+        return DB::getdata("contanct/zan/$cid");
+    }
+    public static function putZan($cid,$cfg){
+        return DB::putdata("contanct/zan/$cid",$cfg);
+    }
+    public static function query($cid){
+        $cfg=contanct_zan::getData($cid);
+        if(!$cfg['cnt']) $cfg['cnt']=0;
+        $res=["my"=>0,"cnt"=>$cfg['cnt']];
+        if($cfg===array()){
+            return $res;
+        }
+        $myid=user::read()['name'];
+        if($cfg['list'][$myid]>=0){
+            $res['my']=1;
+        }
+        return $res;
+    }
+    public static function add($cid){
+        $cfg=contanct_zan::getData($cid);
+        $myid=user::read()['name'];
+        if($cfg['list'][$myid]>=0){
+            $cfg['list'][$myid]=-1*time();
+            $cfg['cnt']--;
+        }else{
+            $cfg['list'][$myid]=time();
+            $cfg['cnt']++;
+        }
+        return contanct_zan::putZan($cid,$cfg);
+    }
+}
+class contanct_reply{
+    public static function getData($cid){
+        return DB::getdata("contanct/reply/$cid");
+    }
+    public static function putData($cid,$cfg){
+        return DB::putdata("contanct/reply/$cid",$cfg);
+    }
+    public static function query($cid){
+        
+    }
+    public static function add($cid,$c){
+        $raw=contanct_reply::getData($cid);
+        $myid=user::read()['name'];
+        $raw[]=array(
+            "submitor"=>$myid,
+            "time"=>time(),
+            "content"=>$c,
+            "floor"=>count($raw)+1
+        );
+        return contanct_reply::putData($cid,$raw);
+    }
+    public static function rmd($cid,$rid){
+        $raw=contanct_reply::getData($cid);
+        $myid=user::read()['name'];
+        if($raw[$rid]['submitor']==$myid){
+            if($raw[$rid]['del']==1) return 1;
+            $raw[$rid]['del']=1;
+            return contanct_reply::putData($cid,$raw);
+        }
+        else{
+            return 0;
+        }
+    }
+}

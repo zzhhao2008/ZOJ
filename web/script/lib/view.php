@@ -3,9 +3,10 @@ $viewimport = [];
 class view
 {
     // 定义一个静态函数，用于生成HTML的头部
-    public static function header($title = "", $oh = "")
+    public static function header($title = "ZZHCODE", $oh = "")
     {
         global $config;
+        global $navitems;
         $title = $title . $config['name'];
         // 输出HTML的头部
         echo "<!DOCTYPE html>\n";
@@ -43,7 +44,7 @@ class view
     {
         // 输出JSMarkdown解析器
         echo "
-        <script src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
+        <script src='/static/js/markedjs.js'></script>
         <script>
         document.getElementById('$id').innerHTML = marked.parse(`" . str_replace("`", "\`", addslashes($text)) . "`);
         import('/static/js/mathtex.js');
