@@ -1,19 +1,20 @@
 <?php
-if ($_GET['logout']) {
-    setcookie("login_name_code", "", time() - 3600 * 48, "/");
-    jsjump("?");
+$uid=$_GET['uid'];
+$userconfig = user::queryUser($uid);
+if(empty($uid)){
+    view::B404();
+    exit;
 }
-view::header("我的账户");
-$userconfig = user::read()['profile'];
+view::header($userconfig['nick']."的个人空间");
+
 ?>
 <p>
-<h2>Hi,<?= user::queryUserNick(user::read()['name'],1,1) ?>!</h2>
+<h2>Welcome,I'm <?= user::queryUserNick($uid,1) ?>!</h2>
+<h5><?= user::queryUserNick($uid,1)?>的个人空间</h5>
 </p>
-<a href="?logout=1" class="btn btn-danger"><?= view::icon('box-arrow-left') ?>退出登录</a>
-<a href="/change" class="btn btn-primary"><?= view::icon('pencil-square') ?>个人设置</a>
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">Rating:<?= $userconfig['rating'] ?></li>
-    <li class="list-group-item list-group-item-secondary">Email:<?= $userconfig['email'] ?></li>
+    <li class="list-group-item list-group-item-secondary">ID:<?= $uid ?></li>
     <li class="list-group-item list-group-item-dark">
         <h5>个人介绍</h5><?= $userconfig['about'] ?>
     </li>

@@ -23,14 +23,17 @@ include includeLib("problem");
 include includeLib("judge");
 include includeLib("submit");
 include includeLib("contanct");
-function arrayDecode($array)
+function arrayDecode($array,$llimit=8128)
 {
     $req = [];
+    $safeneedle = ["answer", "face"];
     foreach ($array as $k => $v) {
         if (is_array($v)) {
             $req[$k] = arrayDecode($v);
         } else {
-            $safeneedle = [];
+            if(strlen($v)>$llimit){
+                $v=substr($v,0,$llimit)."...";
+            }
             $v = htmlspecialchars($v);
             if (!in_array($k, $safeneedle)) $req[$k] = addslashes($v);
             else $req[$k] = $array[$k];
@@ -40,26 +43,9 @@ function arrayDecode($array)
 }
 function requestDecode()
 {
-    $safeneedle = ["answer", "face"];
     $req_all = [];
-    foreach ($_GET as $k => $v) {
-        if (is_array($v)) {
-            $_GET[$k]=arrayDecode($v);
-        } else {
-            $v = htmlspecialchars($v);
-            if (!in_array($k, $safeneedle)) $_GET[$k] = ($v);
-            $req_all[$k] = $_GET[$k];
-        }
-    }
-    foreach ($_POST as $k => $v) {
-        if (is_array($v)) {
-            $_POST[$k]=arrayDecode($v);
-        } else {
-            $v = htmlspecialchars($v);
-            if (!in_array($k, $safeneedle)) $_POST[$k] = ($v);
-            $req_all[$k] = $_POST[$k];
-        }
-    }
+    $_GET=arrayDecode($_GET,256);
+    $_POST=arrayDecode($_POST,1024*10);
     foreach ($_COOKIE as $k => $v) {
         $v = htmlspecialchars($v);
         $_COOKIE[$k] = addslashes($v);

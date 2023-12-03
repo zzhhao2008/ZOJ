@@ -15,7 +15,7 @@ $emptycfg = array(
     array(),
     'email' => '',
     'about' => '',
-    'dt'=>array()
+    'dt' => array()
 );
 class user
 {
@@ -26,10 +26,51 @@ class user
     public static function queryUser($username)
     {
         $uprofile = DB::getdata("user/$username");
-        if (empty($uprofile)||$uprofile['unlink']===1||$uprofile['ban']===1) {
+        if (empty($uprofile) || $uprofile['unlink'] === 1 || $uprofile['ban'] === 1) {
             return 0;
         }
         return $uprofile;
+    }
+    public static function queryUserNick($username, $html = 0, $link = 0)
+    {
+        $uprofile = DB::getdata("user/$username");
+        if (empty($uprofile) || $uprofile['unlink'] === 1 || $uprofile['ban'] === 1) {
+            return "UNK";
+        }
+        if ($html == 1) {
+            if ($link == 1) {
+                return "<a href='/visituser?uid=$username'>" . "<span class='text-" . user::NickColor($uprofile) . "'>" . $uprofile['nick'] . "</span>" . "</a>";
+            }
+            return  "<span class='text-" . user::NickColor($uprofile) . "'>" . $uprofile['nick'] . "</span>";
+        }
+        return $uprofile['nick'];
+    }
+    public static function NickColor($user)
+    {
+        /*
+        Admin:danger
+        User:primary
+        R<1000 muted
+        R>2500 info
+        Baned warning
+        VIP/leader/doctor success
+        */
+        if ($user['power'] >= 2) {
+            return "danger";
+        }
+        if ($user['doctor'] == 1) {
+            return "success";
+        }
+        if ($user['rating'] > 2500) {
+            return "info";
+        }
+        if ($user['rating'] < 1000) {
+            return "muted";
+        }
+        if ($user['ban'] == 1) {
+            return "warning";
+        }
+        return "primary";
     }
     public static function queryUserAdmin($username)
     {
@@ -88,12 +129,14 @@ class user
         $res = $GLOBALS['userprofile'][$key];
         return $res;
     }
-    public static function saveuserprofie($userid,$cfg){
-        $y=DB::getdata("user/$userid");
-        if(empty($y)||!is_array($cfg)) return 0;
-        else return DB::putdata("user/$userid",$cfg);
+    public static function saveuserprofie($userid, $cfg)
+    {
+        $y = DB::getdata("user/$userid");
+        if (empty($y) || !is_array($cfg)) return 0;
+        else return DB::putdata("user/$userid", $cfg);
     }
-    public static function is_superuser(){
-        return user::read()['profile']['power']>1;
+    public static function is_superuser()
+    {
+        return user::read()['profile']['power'] > 1;
     }
 }

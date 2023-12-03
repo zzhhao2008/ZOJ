@@ -70,6 +70,11 @@ class judger
     {
         //从 judger队列中获取所有要评测的题目，以JSON字符串返回ID
         $judgerqueue = DB::scanName("submission/judgequeue");
+        foreach($judgerqueue as $k=>$v){
+            if(stripos($v,"pids-P")<=1){
+                unset($judgerqueue[$k]);
+            }
+        }
         $jsons = json_encode($judgerqueue);
         return $jsons;
     }

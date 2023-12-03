@@ -1,7 +1,10 @@
 <?php
-$data = contanct::getContanctList_Problems(1);
-$numid = count($data);
-view::header("交流"); ?>
+$p=intval($_GET['page'])?intval($_GET['page']):1;
+$data = contanct::getContanctList_Problems(1,$p,25);
+$numid = $data['end']+1;
+view::header("交流");
+usort($data['data'],function($a,$b){return $a['createTime']<$b['createTime'];});
+?>
 
 <div class="abox">
     <h5>Fifter/筛选</h5>
@@ -37,7 +40,7 @@ view::header("交流"); ?>
         <tbody>
             <?php
 
-            foreach ($data as $k => $item) :
+            foreach ($data['data'] as $k => $item) :
                 if ($_GET['pid']) {
                     if ($item['for'] != $_GET['pid']) {
                         continue;
@@ -58,7 +61,7 @@ view::header("交流"); ?>
                     <td class="thint"><?= $numid ?></td>
                     <td class="mthint"><?= $item['for'] ?></td>
                     <td><?= $item['title'] ?></td>
-                    <td><?= $item['creator'] ?></td>
+                    <td><?= user::queryUserNick($item['creator'],1) ?></td>
                     <td><?= date("m-d", $item['createTime']) ?></td>
                 </tr>
             <?php $numid--;
@@ -71,7 +74,7 @@ view::header("交流"); ?>
 <div class="abox">
     <?php
     if (user::is_superuser() || 1) {
-        $data = contanct::getContanctList_Private(1);
+        $data = contanct::getContanctList_Private(1,$p,10);
         $numid = count($data);
     ?>
         <h4>隐藏</h4>
@@ -87,24 +90,8 @@ view::header("交流"); ?>
             </thead>
             <tbody>
                 <?php
-
-                foreach ($data as $k => $item) :
+                foreach ($data['data'] as $k => $item) :
                     if ((!user::is_superuser()) && ($item['creator'] != user::read()['name'])) continue;
-                    if ($_GET['pid']) {
-                        if ($item['for'] != $_GET['pid']) {
-                            continue;
-                        }
-                    }
-                    if ($_GET['creator']) {
-                        if ($item['creator'] != $_GET['creator']) {
-                            continue;
-                        }
-                    }
-                    if ($_GET['time']) {
-                        if (date("m-d", $item['createTime']) != $_GET['time']) {
-                            continue;
-                        }
-                    }
                 ?>
                     <tr onclick="window.location='/contancting?cid=<?= $item['id'] ?>'">
                         <td class="thint"><?= $numid ?></td>

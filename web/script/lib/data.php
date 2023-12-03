@@ -22,7 +22,7 @@ class DB{
         return file_put_contents($datapath,"<?php return ".var_export($data,1).";?>");
     }
     // 定义一个静态方法，用于扫描数据
-    public static function scanData($path){
+    public static function scanData($path,$page=0,$limit=0,$raw=1){
         // 定义一个变量，用于存放扫描数据的路径
         $path="../data/$path/";
         // 判断路径是否存在，如果不存在，或者不是一个目录，则返回nulla数组
@@ -32,6 +32,7 @@ class DB{
         // 获取路径下的文件列表
         $r=scandir($path);
         // 定义一个数组，用于存放扫描到的数据
+        $datalist=[];
         $datas=[];
         // 遍历文件列表
         foreach($r as $k=>$v){
@@ -44,10 +45,28 @@ class DB{
             // 将文件名中的.php替换为空
             $v=str_replace(".php","",$v);
             // 将文件名作为key，文件内容作为value，存入到datas数组中
-            $datas[$v]=DB::getdata($path.$v);
+            $datalist[]=$v;
         }
+        $maxlimit=max(count($datalist)-1,0);
+        if($page!=0){
+            $start = min($limit*($page-1),$maxlimit);
+            $end = min($limit*$page-1,$maxlimit);
+        }else{
+            $start = 0;
+            $end = $maxlimit;
+        }
+
+        $datalist=array_reverse($datalist);
+        for($i=$start;$i<=$end;$i++){
+            $datas[$i]=DB::getdata($path.$datalist[$i]);
+        }
+        if(count($datalist)==0) $datas=[];
+        $rt['start']=$start;
+        $rt['end']=$end;
+        $rt['data']=$datas;
         // 返回datas数组
-        return $datas;
+        if($raw===1) return $datas;
+        else return $rt;
     }
     public static function rmdata($dataname){
         // 定义一个变量，用于存放存放数据的路径

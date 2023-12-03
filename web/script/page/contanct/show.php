@@ -44,7 +44,7 @@ $reply = contanct_reply::getData($cid);
     </div>
     <div class="col-lg-4 problemsubbox">
         <div class="p-3">
-            <h5><?= view::icon("person") ?><?= $contanctSelf['creator'] ?></h5>
+            <h5><?= view::icon("person") ?><?= user::queryUserNick($contanctSelf['creator'],1,1) ?></h5>
             发布于<code><?= date("Y-m-d H:i", $contanctSelf['createTime']) ?></code>
             <p>题目：<a class="text-info" href="/problem?pid=<?= $thisproblemid ?>"><?= $thisproblem['title'] ?></a></p>
         </div>

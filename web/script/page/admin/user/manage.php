@@ -1,5 +1,5 @@
 <?php
-$users = DB::scanData("user");
+$users = DB::scanName("user");
 function getstau($user)
 {
     if ($user['ban'] === 1) {
@@ -27,7 +27,7 @@ function getcolor($user)
             return " table-warning";
     }
 }
-view::header("创建或删除题目"); ?>
+view::header("用户列表"); ?>
 <table class="table table-hover">
     <thead>
         <tr class="table-info">
@@ -38,7 +38,8 @@ view::header("创建或删除题目"); ?>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($users as $k => $v) {
+        <?php foreach ($users as $k) {
+            $v=user::queryUser($k);
             if (getstau($v) === '已删除' || user::read()['name'] === $k) continue;
         ?>
             <tr class="<?= getcolor($v) ?>">

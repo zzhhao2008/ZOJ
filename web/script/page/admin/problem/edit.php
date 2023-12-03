@@ -36,6 +36,7 @@ if ($_POST) {
     $thisp['difficulty'] = intval($_POST['difficulty']);
     $thisp['hiddensubmission'] = intval($_POST['hiddensubmission']);
     $thisp['opencode'] = intval($_POST['opencode']);
+    $thisp['ans'] = $_POST['ans'];
     //var_dump($thisp);
     problems::save($tid, $thisp);
 }
@@ -66,6 +67,11 @@ else :
                     <div class="w-50 col-6">
                         <label for="ol" class="form-label">内存限制(MB)</label>
                         <input type="number" class="form-control" id="ol" name="memlimit" value="<?= $thisp['memlimit'] ?>">
+                    </div>
+                <?php else : ?>
+                    <div class="w-50">
+                        <label for="ol" class="form-label">参考答案</label>
+                        <input type="text" class="form-control" id="ol" name="ans" value="<?= $thisp['ans'] ?>">
                     </div>
                 <?php endif; ?>
             </div>
@@ -119,7 +125,7 @@ else :
             <div>
                 <input class="btn btn-primary" type="submit" value="保存">
                 <button class="btn btn-danger" type="button" onclick="reflush()">重置</button>
-                <a class="btn btn-info" href='problem_edit_d?pid=<?=$tid?>'>修改评测设置</a>
+                <a class="btn btn-info" href='problem_edit_d?pid=<?= $tid ?>'>修改评测设置</a>
             </div>
         </div>
     </form>

@@ -36,7 +36,7 @@ if ($vis === 0) { //默认显示题目列表
             </ul>
         </div>
     <?php     }
-    $problems = DB::scanData("problems/config");
+    $problems = array_reverse(DB::scanData("problems/config")) ;
     ?>
     <table class="table table-hover">
         <thead>
@@ -51,6 +51,7 @@ if ($vis === 0) { //默认显示题目列表
         <tbody>
             <?php
             foreach ($problems as $k => $v) {
+                $k=$v['id'];
                 if (!problems::visable($v)) continue;
                 $thistry = 0;
                 $thistry = user::read()['profile']['try'][$k];

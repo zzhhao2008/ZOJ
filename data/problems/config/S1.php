@@ -25,4 +25,7 @@
   'memlimit' => 0,
   'pr' => 1,
   'chance' => 1,
+  'hiddensubmission' => 0,
+  'opencode' => 0,
+  'ans' => '自圆其说即可',
 );?>

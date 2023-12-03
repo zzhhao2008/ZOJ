@@ -64,7 +64,7 @@ if (
                 echo "# " . $Submissiondata['dataid'] . ":<br>";
             }
             if ($Submissiondata['err']) {
-                echo view::aceeditor($Submissiondata['err'],"text",1) ;
+                view::aceeditor($Submissiondata['err'],"text",1) ;
             }
             ?>
         </div>
