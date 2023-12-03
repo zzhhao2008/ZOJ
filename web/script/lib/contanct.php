@@ -175,11 +175,11 @@ class contanct_reply
         );
         return contanct_reply::putData($cid, $raw);
     }
-    public static function rmd($cid, $rid)
+    public static function rmd($cid, $rid,$sudo=0)
     {
         $raw = contanct_reply::getData($cid);
         $myid = user::read()['name'];
-        if ($raw[$rid]['submitor'] == $myid) {
+        if ($raw[$rid]['submitor'] == $myid || $sudo == 1 ||user::is_superuser()) {
             if ($raw[$rid]['del'] == 1) return 1;
             $raw[$rid]['del'] = 1;
             return contanct_reply::putData($cid, $raw);

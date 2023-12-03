@@ -17,14 +17,18 @@ if ($_GET['zan']) {
 if ($_POST['reply']) {
     contanct_reply::add($cid, $_POST['reply']);
     view::message("发送成功,<b>请不要再刷新页面</b>");
+    jsjump("contancting?cid=$cid");
 }
 if(isset($_GET['del'])){
-    $res=contanct_reply::rmd($cid,$_GET['del']);
+    if(user::read()['name'] === $contanctSelf['creator']) $su=1;
+    else $su=0;
+    $res=contanct_reply::rmd($cid,$_GET['del'],$su);
     if($res){
         view::message("删除成功");
     }else{
         view::message("失败！");
     }
+    jsjump("contancting?cid=$cid");
 }
 $thisproblemid = $contanctSelf['for'];
 $thisproblem = problems::queryProblem($contanctSelf['for']);
@@ -82,11 +86,11 @@ $reply = contanct_reply::getData($cid);
     ?>
         <p></p>
         <div class="col-sm-8">
-            <div class="abox <?= $rep['submitor'] === user::read()['name'] ? "my" : "visitor" ?>-b-m p-2">
+            <div class="abox <?= $rep['submitor'] === user::read()['name'] ? "my" : ($contanctSelf['creator'] === $rep['submitor'] ?"master":"visitor") ?>-b-m p-2">
                 <b style="font-size: larger;"><?= view::icon("people") ?><?= $rep['submitor'] ?></b><br>
                 <code><?= date("Y-m-d H:i:s", $rep['time']) ?></code>
                 <code style="float:right"># <?= $rep['floor'] ?></code>
-                <?php if (($rep['submitor'] === user::read()['name'] || user::is_superuser())&&$rep['del']!=1) : ?>
+                <?php if (($rep['submitor'] === user::read()['name'] || user::is_superuser() || user::read()['name'] === $contanctSelf['creator'])&&$rep['del']!=1) : ?>
                     <a href="?del=<?= $rep['floor']-1 ?>&cid=<?= $_GET['cid'] ?>">删除</a>
                 <?php endif; ?>
                 <?php
