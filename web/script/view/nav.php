@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top" style="background: #e3f2fd;">
+<nav class="navbar fixed-top" style="background: <?=custom::read("navbar-bg")?>;">
 	<div class="container">
 		<a class="navbar-brand" href="/">
 			<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
@@ -6,7 +6,7 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: <?=custom::read("navbar-main-bg")?>;">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">
 				<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">

@@ -5,6 +5,7 @@ class view
     // 定义一个静态函数，用于生成HTML的头部
     public static function header($title = "ZZHCODE", $oh = "")
     {
+        custom::init();
         global $config;
         global $navitems;
         $title = $title . $config['name'];

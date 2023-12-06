@@ -1,8 +1,8 @@
 var editors = []
-function initEditor(id = 0, language = "markdown",rl=0) {
+function initEditor(id = 0, language = "markdown",rl=0,theme = "tomorrow") {
     //获取控件   id ：codeEditor
     editors[id] = ace.edit("codeEditor"+id);
-    theme = "tomorrow";
+    ;
     editors[id].setTheme("ace/theme/" + theme);
     editors[id].session.setMode("ace/mode/" + language);
     //字体大小

@@ -17,12 +17,13 @@ function includeC($name)
 }
 include includeLib("data");
 include includeLib("router");
-include includeLib("view");
 include includeLib("user");
-include includeLib("problem");
+include includeLib("view");
 include includeLib("judge");
 include includeLib("submit");
+include includeLib("problem");
 include includeLib("contanct");
+include includeLib("practice");
 function arrayDecode($array,$llimit=8128)
 {
     $req = [];
