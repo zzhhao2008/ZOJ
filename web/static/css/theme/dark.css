@@ -1,0 +1,51 @@
+body {
+    padding-top: 80px;
+    background-color: #111;
+    color: aliceblue;
+}
+
+.nav-item a:visited,
+.nav-item a:link,
+.navbar-brand {
+    color: rgb(233, 233, 233);
+    font-weight: 600;
+}
+
+.nav-item a:hover,
+.navbar-brand:hover {
+    color: rgb(255, 255, 255);
+    font-weight: 800;
+    text-shadow: 1px 2px 2px gainsboro;
+    border-bottom: 1px solid pink;
+}
+
+
+.row {
+    margin-top: 8px;
+    min-height: 100px;
+}
+
+.problemjump {
+    padding: 15px;
+    height: 150px;
+}
+
+.problemjump input {
+    max-width: 95%;
+    border: 1px solid #0e90d2;
+    margin-bottom: 2px;
+}
+
+.navmainc {
+    color: aliceblue;
+    background: #222;
+}
+
+.main .abox {
+    background: rgba(100, 100, 100, 0.9);
+}
+
+.navtopc {
+    color: aliceblue;
+    background: #558;
+}

@@ -190,50 +190,28 @@ class user
 }
 class custom
 {
-    public static function light()
-    {
-        return array(
-            "navbar-bg" => "#e3f2fd",
-            "navbar-main-bg" => "#fff",
-            "color-text" => '#000',
-            "editor-theme" => "tomorrow"
-        );
-    }
-    public static function dark()
-    {
-        return array(
-            "navbar-bg" => "#212121",
-            "navbar-main-bg" => "#303030",
-            "color-text" => '#fff',
-            "editor-theme" => "tomorrow"
-        );
-    }
-    public static function getThemeConfig($themeid)
-    {
-        $res = array();
-        switch ($themeid)
-        {
-            case "light":
-                $res = custom::light();
-                break;
-            case "dark":
-                $res = custom::dark();
-                break;
-            default:
-                $res = custom::light();
-                break;
-        }
-        return $res;
-    }
     public static function init()
     {
         $mytheme = user::read()['profile']['theme'];
         if (empty($mytheme)) $mytheme = "light";
-        $themecfg=custom::getThemeConfig($mytheme);
-        $GLOBALS['themeCfg']=$themecfg;
-        $GLOBALS['theme']=$mytheme;
+
+        $GLOBALS['themeid'] = $mytheme;
     }
-    public static function read($key){
-        return $GLOBALS['themeCfg'][$key];
+    public static function readid()
+    {
+        return $GLOBALS['themeid'];
+    }
+    public static function ToCss($themecfg, $html = 0, $ele = "body")
+    {
+        $css = "$ele{\n";
+        foreach ($themecfg as $k => $v) {
+
+            $css .= $k . ":" . $v . ";\n";
+        }
+        $css .= "}\n";
+        if ($html)
+            return "<style>" . $css . "</style>";
+        else
+            return $css;
     }
 }

@@ -18,6 +18,7 @@ class view
         echo "\n<title>", $title . "</title>\n";
         // 输出oh变量
         echo $oh;
+        
         echo "</head>\n";
         // 引入导航文件
         include includeViewer("nav");

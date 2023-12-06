@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top" style="background: <?=custom::read("navbar-bg")?>;">
+<nav class="navbar fixed-top navtopc">
 	<div class="container">
 		<a class="navbar-brand" href="/">
 			<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
@@ -6,7 +6,7 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background: <?=custom::read("navbar-main-bg")?>;">
+		<div class="offcanvas offcanvas-start navmainc" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">
 				<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
@@ -16,7 +16,7 @@
 			<div class="offcanvas-body">
 				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item">
-						<a class="nav-link active" id="contanctnaver" aria-current="page" href="/contanct"><?=view::icon("chat-dots-fill")?>交流</a>
+						<a class="nav-link" id="contanctnaver" aria-current="page" href="/contanct"><?=view::icon("chat-dots-fill")?>交流</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="problemnaver" href="/problem"><?=view::icon("list")?>题目</a>
@@ -34,7 +34,7 @@
 					if (!in_array(Router::getUri(), $navitems)) {
 					?>
 						<li class="nav-item">
-							<a class="nav-link active" id="<?= Router::getUri() ?>naver" href="#"><?= $title ?></a>
+							<a class="nav-link" id="<?= Router::getUri() ?>naver" href="#"><?= $title ?></a>
 						</li>
 					<?php } ?>
 					<?php if (user::is_superuser()) : ?>
