@@ -133,3 +133,82 @@ HTML;
         return $id;
     }
 }
+$myThemeCfg=[];
+$myThemeID='light';
+class theme{
+    static public function getCfg_user($userid){
+        return DB::getdata("theme/user/$userid");
+    }
+    static public function getCfg_Common($id){
+        return DB::getdata("theme/common/$id");
+    }
+    static public function solveid($id){
+        return explode("/",$id);
+    }
+    static public function saveChange(){
+        global $myThemeCfg,$myThemeID;
+        $cfgU=array(
+            "theme"=>$myThemeID,
+            "selfset"=>$myThemeID==='self'?$myThemeCfg:[],
+        );
+        return DB::putdata("theme/user/".user::read()['name'],$cfgU);
+    }
+    static public function init(){
+        global $mypower,$myThemeCfg,$myThemeID;
+        if($mypower<=0) {
+            $myThemeCfg=theme::getCfg_Common("light");
+        }
+        else{
+            $mycfg=theme::getCfg_user(user::read()['name']); 
+            if(empty($mycfg)){
+                $myThemeCfg= theme::getCfg_Common("light");
+                $myThemeID='light';
+            }else{
+                if($mycfg['theme']==='self'){
+                    $myThemeCfg= $mycfg['selfset'];
+                    $myThemeID='self';
+                }else{
+                    $myThemeCfg= theme::getCfg_Common($mycfg['theme']);
+                    $myThemeID=$mycfg['theme'];
+                }
+            }
+        }
+        return 1;
+    }
+    static public function css($mycfg=[]){
+        if($mycfg===[]){
+            global $myThemeCfg;
+            $mycfg=$myThemeCfg;
+        }
+        $frontcolor=$mycfg['frontcolor'];
+        $backcolor=$mycfg['backcolor'];
+        $activecolor=$mycfg['activecolor'];
+        $barcolor=$mycfg['barcolor'];
+        $barfcolor=$mycfg['barfcolor'];
+        return <<<CSS
+body{
+    color: $frontcolor;
+    padding-top: 80px;
+    background-color: $backcolor;
+}
+.nav-item a:visited,.nav-item a:link,.navbar-brand{
+    color: $barfcolor;
+    font-weight: 600;
+}
+.nav-item a:hover,.navbar-brand:hover{
+    color: $frontcolor;
+    font-weight: 800;
+    text-shadow: 1px 2px 2px gainsboro;
+    border-bottom: 1px solid pink;
+}
+
+.navtopc{
+    background: $barcolor;
+}
+.navmainc{
+    background: $backcolor;
+    color:$frontcolor;
+}
+CSS;
+    }
+}

@@ -14,4 +14,5 @@
     #<?=Router::getUri()?>naver{
         border-bottom: 2px solid red;
     }
+    <?=theme::css();?>
 </style>
