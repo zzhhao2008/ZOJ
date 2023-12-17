@@ -11,6 +11,7 @@ $userconfig = user::read()['profile'];
 </p>
 <a href="?logout=1" class="btn btn-danger"><?= view::icon('box-arrow-left') ?>退出登录</a>
 <a href="/change" class="btn btn-primary"><?= view::icon('pencil-square') ?>个人设置</a>
+<a href="/themeset" class="btn btn-primary"><?= view::icon('pencil-square') ?>主题设置</a>
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">Rating:<?= $userconfig['rating'] ?></li>
     <li class="list-group-item list-group-item-secondary">Email:<?= $userconfig['email'] ?></li>

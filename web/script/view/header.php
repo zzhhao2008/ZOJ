@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="/static/bootstrap/5.3.2/css/bootstrap.css">
 <link rel="stylesheet" href="/static/css/public.css">
 <link rel="stylesheet" href="/static/css/tool.css">
-<link rel="stylesheet" href="/static/css/theme/<?=custom::readid()?>.css">
 <link rel="stylesheet" href="/static/bootstrap/icons/bootstrap-icons.css">
 <script src="/static/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
 <script src="/static/js/view.js"></script>

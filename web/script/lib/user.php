@@ -188,30 +188,4 @@ class user
         return user::read()['profile']['power'] > 1;
     }
 }
-class custom
-{
-    public static function init()
-    {
-        $mytheme = user::read()['profile']['theme'];
-        if (empty($mytheme)) $mytheme = "light";
 
-        $GLOBALS['themeid'] = $mytheme;
-    }
-    public static function readid()
-    {
-        return $GLOBALS['themeid'];
-    }
-    public static function ToCss($themecfg, $html = 0, $ele = "body")
-    {
-        $css = "$ele{\n";
-        foreach ($themecfg as $k => $v) {
-
-            $css .= $k . ":" . $v . ";\n";
-        }
-        $css .= "}\n";
-        if ($html)
-            return "<style>" . $css . "</style>";
-        else
-            return $css;
-    }
-}

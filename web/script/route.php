@@ -18,7 +18,7 @@ Router::login("change", "user/change");
 Router::login("submission", "submission/look");
 Router::login("submissions", "submission/list");
 Router::login("contanctmanage", "contanct/manage");
-
+Router::login("themeset","user/themeset");
 
 Router::guest("contest", "user/login");
 Router::guest("profile", "user/login");

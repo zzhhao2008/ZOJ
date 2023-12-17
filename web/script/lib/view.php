@@ -5,7 +5,6 @@ class view
     // 定义一个静态函数，用于生成HTML的头部
     public static function header($title = "ZZHCODE", $oh = "")
     {
-        custom::init();
         global $config;
         global $navitems;
         $title = $title . $config['name'];
@@ -145,6 +144,13 @@ class theme{
     static public function solveid($id){
         return explode("/",$id);
     }
+    static public function changemy($newid){
+        global $myThemeID;
+        if($newid!=='self' && theme::getCfg_Common($newid)===[]) return false;
+        $myThemeID=$newid;
+        return theme::saveChange();
+    }
+
     static public function saveChange(){
         global $myThemeCfg,$myThemeID;
         $cfgU=array(
@@ -189,7 +195,9 @@ class theme{
 body{
     color: $frontcolor;
     padding-top: 80px;
-    background-color: $backcolor;
+    background: $backcolor;
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 .nav-item a:visited,.nav-item a:link,.navbar-brand{
     color: $barfcolor;
