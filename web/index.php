@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);
 include "./script/lib/main.php";
 Router::loadRouteMap();
 $p=user::LoginCheck(1);
