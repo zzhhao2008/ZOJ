@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    "frontcolor"=>"#555",
+    "frontcolor"=>"#ddd",
     "backcolor"=>'url("/static/gif/darkb.gif")',
     'activecolor'=>'#FFFF00',
-    "barcolor"=>"#33225d",
+    "barcolor"=>"#33445d",
     "barfcolor"=>"rgb(175, 164, 164)",
-    
+    "subbackcolor"=>"rgba(255, 255, 255, 0.2)"
 );

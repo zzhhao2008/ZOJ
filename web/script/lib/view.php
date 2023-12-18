@@ -188,6 +188,7 @@ class theme{
         }
         $frontcolor=$mycfg['frontcolor'];
         $backcolor=$mycfg['backcolor'];
+        $subbackcolor=$mycfg['subbackcolor']??'rgba(255, 255, 255, 0.9)';
         $activecolor=$mycfg['activecolor'];
         $barcolor=$mycfg['barcolor'];
         $barfcolor=$mycfg['barfcolor'];
@@ -198,6 +199,7 @@ body{
     background: $backcolor;
     background-repeat:no-repeat;
     background-size:100%;
+    background-size: cover;
 }
 .nav-item a:visited,.nav-item a:link,.navbar-brand{
     color: $barfcolor;
@@ -217,6 +219,10 @@ body{
     background: $backcolor;
     color:$frontcolor;
 }
+.abox,.problembox>div,.problemsubbox>div{
+    background: $subbackcolor;
+}
+
 CSS;
     }
 }

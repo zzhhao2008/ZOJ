@@ -21,7 +21,7 @@ class user
 {
     /**
      * 获取（已登录）用户的信息
-     * @return array('username'=>"<USERID>","profile"=>"<USERPROFILE>")
+     * @return array('name'=>"<USERID>","profile"=>"<USERPROFILE>")
      */
     public static function read()
     {

@@ -44,6 +44,7 @@ function solve($submissions)
         $cnt++;
         if ($cnt >= 100) break;
     }
+    if(empty($showingsubmission)) return [];
     //使用usort(),以['time']为依据对$showingsubmission进行排序
     usort($showingsubmission, function ($a, $b) {
         return $a['time'] < $b['time'];

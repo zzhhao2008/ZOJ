@@ -185,14 +185,16 @@ class problems
     {
         $choices = $problem["cs"];
         $n = count($choices);
+        $out='';
         for ($i = 1; $i <= $n; $i++) {
             $now = problems::numerToWord($i);
             $nc = $choices[$now];
-            echo "<div class='form-check'>
+            $out.= "<div class='form-check'>
                 <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer$idnow' value='$now' checked>
                 <label class='form-check-label' for='radio$idnow-$i'>$now.$nc</label>
             </div>";
         }
+        return $out;
     }
     static function save($id, $data)
     {

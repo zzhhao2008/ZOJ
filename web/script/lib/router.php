@@ -42,6 +42,7 @@ class Router{
         if(isset($routerMap['login'][$ru])&&$userpower>=1) return $routerMap['login'][$ru];
         if(isset($routerMap['admin'][$ru])&&$userpower>=2) return $routerMap['admin'][$ru];
         if(isset($routerMap['guest'][$ru])&&$userpower==0) return $routerMap['guest'][$ru];
+        if(isset($routerMap['login'][$ru])&&$userpower==0) return "user/login";
         return "error/404";
     }
 }

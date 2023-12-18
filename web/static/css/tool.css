@@ -7,7 +7,6 @@
 }
 
 .problembox>div {
-    background: #fff;
     padding: 10px;
     min-height: 50vh;
     border-radius: 5px;
@@ -20,7 +19,6 @@
 
 .problemsubbox>div {
     padding: 10px;
-    background-color: #fff;
     width: 100%;
     height: auto;
     border-radius: 5px;
@@ -72,7 +70,6 @@
 }
 
 .main .abox {
-    background: rgba(255, 255, 255, 0.9);
     min-height: 100px;
     padding: 5px;
     height: 100%;
