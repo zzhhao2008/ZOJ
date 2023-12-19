@@ -126,6 +126,7 @@ else :
                 <input class="btn btn-primary" type="submit" value="保存">
                 <button class="btn btn-danger" type="button" onclick="reflush()">重置</button>
                 <a class="btn btn-info" href='problem_edit_d?pid=<?= $tid ?>'>修改评测设置</a>
+                <a class="btn btn-info" href='problem?id=<?= $tid ?>'>预览</a>
             </div>
         </div>
     </form>

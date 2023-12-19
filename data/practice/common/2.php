@@ -1,8 +1,8 @@
 <?php return array (
   'title' => '12-18周考——化学',
-  'face' => '^problem C4 FC
-^problem C5 FC
-',
+  'face' => '^problem C4
+^problem C5
+^problem C6',
   'rating' => 100,
   'showans' => 0,
   'successshow' => NULL,
@@ -18,6 +18,6 @@
   'chance' => 0,
   'cmped' => 
   array (
-    'num' => 2,
+    'num' => 3,
   ),
 );?>

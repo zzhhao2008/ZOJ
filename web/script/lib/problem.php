@@ -172,8 +172,9 @@ class problems
             $nc = $choices[$now];
             echo "<div class='form-check'>
                 <input type='radio' class='form-check-input' id='radio$i' name='answer' value='$now' checked>
-                <label class='form-check-label' for='radio$i'>$now.$nc</label>
+                <label class='form-check-label' for='radio$i' id='labal$now'>$now.$nc</label>
             </div>";
+            view::jsMdLt("labal$now",$now.".".$nc);
         }
         if (!$cfg['disable']) echo "<button type='submit' class='btn btn-primary mt-3'>提交</button>";
         echo "</form>";
@@ -191,8 +192,9 @@ class problems
             $nc = $choices[$now];
             $out.= "<div class='form-check'>
                 <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer$idnow' value='$now' checked>
-                <label class='form-check-label' for='radio$idnow-$i'>$now.$nc</label>
-            </div>";
+                <label class='form-check-label' for='radio$idnow-$i' id='labal-$idnow-$now'>$now.$nc</label>
+            </div>".
+            view::jsMdLt_GetOnly("labal-$idnow-$now",1);
         }
         return $out;
     }

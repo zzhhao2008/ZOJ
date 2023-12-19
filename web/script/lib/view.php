@@ -51,6 +51,21 @@ class view
         import('/static/js/mathtex.js');
     </script>";
     }
+    public static function jsMdLt_GetOnly($id = "pFace",$noecho=0)
+    {
+        // 输出JSMarkdown解析器
+        $s= "
+        <script src='/static/js/markedjs.js'></script>
+        <script>
+        document.getElementById('$id').innerHTML = marked.parse(document.getElementById('$id').innerHTML);
+        import('/static/js/mathtex.js');
+    </script>";
+    if($noecho){
+        return $s;
+    }else{
+        echo $s;
+    }
+    }
     public static function alert($text, $type = "info", $currenttime = 5000)
     {
         global $viewimport;
@@ -196,10 +211,18 @@ class theme{
 body{
     color: $frontcolor;
     padding-top: 80px;
+    background:none;
+}
+body::before{
+    content: "";
+    position: fixed;
+    top:0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
     background: $backcolor;
-    background-repeat:no-repeat;
-    background-size:100%;
-    background-size: cover;
+    background-size:cover;
 }
 .nav-item a:visited,.nav-item a:link,.navbar-brand{
     color: $barfcolor;
@@ -219,7 +242,7 @@ body{
     background: $backcolor;
     color:$frontcolor;
 }
-.abox,.problembox>div,.problemsubbox>div{
+.abox,.problembox>div,.problemsubbox>div,pre{
     background: $subbackcolor;
 }
 
