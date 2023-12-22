@@ -16,6 +16,7 @@ function includeC($name)
     return "./script/$name.php";
 }
 include includeLib("basic/data");
+include includeLib("basic/time");
 include includeLib("basic/router");
 include includeLib("basic/user");
 include includeLib("view/view");
@@ -23,6 +24,7 @@ include includeLib("main-p/judge");
 include includeLib("main-p/submit");
 include includeLib("main-p/problem");
 include includeLib("contanct");
+include includeLib("contest");
 include includeLib("practice");
 function arrayDecode($array,$llimit=8128)
 {
@@ -45,7 +47,7 @@ function arrayDecode($array,$llimit=8128)
 function requestDecode()
 {
     $req_all = [];
-    $_GET=arrayDecode($_GET,256);
+    $_GET=arrayDecode($_GET,2560);
     $_POST=arrayDecode($_POST,1024*10);
     foreach ($_COOKIE as $k => $v) {
         $v = htmlspecialchars($v);

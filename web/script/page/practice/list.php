@@ -12,6 +12,7 @@ if (user::is_superuser()) {
 <?php     }
 $p=intval($_GET['page'])?intval($_GET['page']):1;
 $practices = practice::get_all_common($p);
+$pagecnt=$paractices['allpage'];
 ?>
 <table class="table table-hover">
     <thead>
@@ -26,7 +27,7 @@ $practices = practice::get_all_common($p);
     </thead>
     <tbody>
         <?php
-        foreach ($practices as $k => $v) {
+        foreach ($practices['data'] as $k => $v) {
             $k = $v['id'];
             if (!practice::visable_common($v)) continue;
             $thistry = 0;
@@ -58,5 +59,17 @@ $practices = practice::get_all_common($p);
         ?>
     </tbody>
 </table>
+<div class="">
+    <ul class="pagination justify-content-center">
+        <?php
+        for ($i = 1; $i <= $pagecnt; $i++) {
+            echo <<<HTML
+                <li class="page-item"><a class="page-link" href="?page=$i">$i</a></li>
+HTML;
+        }
+        ?>
+
+    </ul>
+</div>
 <?php
 view::foot();

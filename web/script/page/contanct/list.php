@@ -1,9 +1,12 @@
 <?php
-$p=intval($_GET['page'])?intval($_GET['page']):1;
-$data = contanct::getContanctList_Problems(1,$p,25);
-$numid = $data['end']+1;
+$p = intval($_GET['page']) ? intval($_GET['page']) : 1;
+$data = contanct::getContanctList_Problems(1, $p, 25);
+$numid = $data['end'] + 1;
+$pagecnt = $data['allpage'];
 view::header("交流");
-usort($data['data'],function($a,$b){return $a['createTime']<$b['createTime'];});
+usort($data['data'], function ($a, $b) {
+    return $a['createTime'] < $b['createTime'];
+});
 ?>
 
 <div class="abox">
@@ -61,7 +64,7 @@ usort($data['data'],function($a,$b){return $a['createTime']<$b['createTime'];});
                     <td class="thint"><?= $numid ?></td>
                     <td class="mthint"><?= $item['for'] ?></td>
                     <td><?= $item['title'] ?></td>
-                    <td><?= user::queryUserNick($item['creator'],1) ?></td>
+                    <td><?= user::queryUserNick($item['creator'], 1) ?></td>
                     <td><?= date("m-d", $item['createTime']) ?></td>
                 </tr>
             <?php $numid--;
@@ -74,8 +77,9 @@ usort($data['data'],function($a,$b){return $a['createTime']<$b['createTime'];});
 <div class="abox">
     <?php
     if (user::is_superuser() || 1) {
-        $data = contanct::getContanctList_Private(1,$p,10);
+        $data = contanct::getContanctList_Private(1, $p, 10);
         $numid = count($data);
+        $pagecnt = max($pagecnt, $data['cfg']);
     ?>
         <h4>隐藏</h4>
         <table class="table table-hover">
@@ -106,6 +110,18 @@ usort($data['data'],function($a,$b){return $a['createTime']<$b['createTime'];});
             </tbody>
         </table>
     <?php } ?>
+</div>
+<div class="">
+    <ul class="pagination justify-content-center">
+        <?php
+        for ($i = 1; $i <= $pagecnt; $i++) {
+            echo <<<HTML
+                <li class="page-item"><a class="page-link" href="?page=$i">$i</a></li>
+HTML;
+        }
+        ?>
+
+    </ul>
 </div>
 <a href="ccontanct?pid=<?= $_GET['pid'] ?>" class="btn btn-primary">创建一个</a>
 <?php view::foot();

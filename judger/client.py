@@ -89,16 +89,16 @@ def monitor_process(process, dataid, max_memory=128, max_time=500):
         if memory_info > max_memory_mb:
             print(f"Memory limit exceeded for data {dataid}")
             process.terminate()
-            return f"MLE!Mem:{memory_info}MB,Time:{current_time - start_time} s"
+            return f"MLE!Mem:{memory_info}MB"
         # 检查运行时间
         current_time = time.time()
         #print(f"mem:{memory_info}MB,time:{current_time - start_time}")
         if current_time - start_time > max_time/1000:
             print(f"Time limit exceeded for data {dataid}")
             process.terminate()
-            return f"TLE!Mem:{memory_info}MB,Time:{current_time - start_time} s"
+            return f"TLE!Time:{current_time - start_time} s"
         time.sleep(0.05)
-    return f"Success!Mem:{memory_info}MB,Time:{current_time - start_time} s"
+    return f"S!M:{memory_info}MB,T:{current_time - start_time} s"
 
 
 def judgeOne(judgedata):
@@ -139,8 +139,8 @@ def judgeOne(judgedata):
             res = monitor_process(
                 process, dataid, thissubmit['mem'], thissubmit['time'])
             process.terminate()
-            print("data#"+str(dataid)+res)
-            errs += 'Running:'+res+' in #'+str(dataid)+'\n'
+            print("#"+str(dataid)+res)
+            errs += res+' -#'+str(dataid)+'\n'
             if(res[0]!='S'):
                 dataid += 1
                 continue
@@ -163,7 +163,7 @@ def judgeOne(judgedata):
         stau = 'AE'
     else:
         stau = "UAC"
-    return {'status': stau, 'err': 'Accepted '+str(round(totalsco*dataid/100))+" of "+str(dataid)+'\n'+errs, 'score': totalsco}
+    return {'status': stau, 'err': 'AC '+str(round(totalsco*dataid/100))+" of "+str(dataid)+'\n'+errs, 'score': totalsco}
 
 
 def mainF():

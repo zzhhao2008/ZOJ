@@ -23,7 +23,7 @@ class practice
     }
     public static function get_all_common($page = 0, $limit = 100)
     {
-        return DB::scanData("practice/common", $page, $limit);
+        return DB::scanData("practice/common", $page, $limit,0);
     }
     public static function config_get()
     {

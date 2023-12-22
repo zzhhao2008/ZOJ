@@ -1,4 +1,3 @@
-<?
-return array(
-    "contests"=>0,
-);
+<?php return array (
+  'contests' => 1,
+);?>

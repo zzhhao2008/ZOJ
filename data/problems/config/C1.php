@@ -6,7 +6,7 @@
   'title' => 'ZZH是谁',
   'pn' => 1,
   'ratingp' => 1,
-  'chance' => 0,
+  'chance' => 1,
   'tag' => 
   array (
     0 => '关键选择',

@@ -1,3 +1,3 @@
 <?php return array (
-  'total' => 9,
+  'total' => 13,
 );?>

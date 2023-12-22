@@ -22,7 +22,7 @@ class DB{
         return file_put_contents($datapath,"<?php return ".var_export($data,1).";?>");
     }
     // 定义一个静态方法，用于扫描数据
-    public static function scanData($path,$page=0,$limit=0,$raw=1){
+    public static function scanData($path,$page=0,$limit=100,$raw=1){
         // 定义一个变量，用于存放扫描数据的路径
         $path="../data/$path/";
         // 判断路径是否存在，如果不存在，或者不是一个目录，则返回nulla数组
@@ -48,6 +48,7 @@ class DB{
             $datalist[]=$v;
         }
         $maxlimit=max(count($datalist)-1,0);
+        $allpage=ceil($maxlimit/$limit);
         if($page!=0){
             $start = min($limit*($page-1),$maxlimit);
             $end = min($limit*$page-1,$maxlimit);
@@ -64,6 +65,7 @@ class DB{
         $rt['start']=$start;
         $rt['end']=$end;
         $rt['data']=$datas;
+        $rt['allpage']=$allpage;
         // 返回datas数组
         if($raw===1) return $datas;
         else return $rt;
