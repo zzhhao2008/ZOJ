@@ -5,7 +5,12 @@ if (empty($sid)) {
     exit;
 }
 $problemid = $Submissiondata['problemid'];
-$problemconfig = problems::queryProblem($problemid);
+if(stripos(" ".$problemid,"Practice")>=1){
+    $problemid = str_replace("Practice","",$problemid);
+    $thisproblem = practice::get_common($problemid);
+}
+else $thisproblem = problems::queryProblem($problemid);
+$problemconfig = $thisproblem;
 if (empty($problemconfig)) {
     view::B404();
     exit;
@@ -65,6 +70,9 @@ if (
             }
             if ($Submissiondata['err']) {
                 view::aceeditor($Submissiondata['err'],"text",1) ;
+            }
+            if ($Submissiondata['reply']) {
+                view::aceeditor($Submissiondata['reply'],"text",1) ;
             }
             ?>
         </div>

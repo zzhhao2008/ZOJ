@@ -30,6 +30,9 @@
 					<li class="nav-item">
 						<a class="nav-link" id="submissionsnaver" href="/submissions"><?=view::icon("record2-fill")?>提交记录</a>
 					</li>
+					<!--li class="nav-item">
+						<a class="nav-link" id="chatnaver" aria-current="page" href="/chat"><?=view::icon("wechat")?>聊天</a>
+					</li-->
 					<?php
 					if (!in_array(Router::getUri(), $navitems)) {
 					?>
@@ -44,6 +47,16 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" id='user_manage' href="/user_manage">用户管理</a></li>
+							</ul>
+						</li>
+					<?php endif; ?>
+					<?php if (user::read()['name']!=='') : ?>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								工具
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" id='user_manage' href="/themeset">主题</a></li>
 							</ul>
 						</li>
 					<?php endif; ?>

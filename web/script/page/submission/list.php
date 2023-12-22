@@ -13,8 +13,12 @@ function solve($submissions)
         $thisproblemid = $submission['problemid'];
         //获取提交记录的submitor
         $thisuserid = $submission['submitor'];
-        //获取problem_id对应的problem信息
-        $thisproblem = problems::queryProblem($thisproblemid);
+        //获取problem_id对应的problem信息 
+        if(stripos(" ".$thisproblemid,"Practice")>=1){
+            $thisproblemid = str_replace("Practice","",$thisproblemid);
+            $thisproblem = practice::get_common($thisproblemid);
+        }
+        else $thisproblem = problems::queryProblem($thisproblemid);
         //如果problem信息为空,或没有查看权限，则跳过
         if (empty($thisproblem) || ($thisproblem['hiddensubmission'] === 1  && !user::is_superuser())) continue;
         if ($_GET['pid']) {

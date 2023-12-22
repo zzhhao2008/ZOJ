@@ -1,9 +1,9 @@
 <?php return array (
   'nick' => 'zzh',
   'password' => 'c4d038b4bed09fdb1471ef51ec3a32cd',
-  'llt' => 1701593696,
+  'llt' => 1703165449,
   'power' => 1,
-  'rating' => 1500,
+  'rating' => 100,
   'try' => 
   array (
     'P1' => '100',
@@ -13,6 +13,7 @@
   ),
   'practice' => 
   array (
+    2 => 100,
   ),
   'email' => 'zzhhao20082@163.com',
   'about' => '',
@@ -35,4 +36,5 @@
     ),
   ),
   'ban' => 0,
+  'unlink' => 0,
 );?>

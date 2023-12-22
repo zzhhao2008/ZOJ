@@ -242,7 +242,7 @@ body::before{
     background: $backcolor;
     color:$frontcolor;
 }
-.abox,.problembox>div,.problemsubbox>div,pre{
+.abox,.problembox>div,.problemsubbox>div,pre,.dropdown-menu,.dropdown-menu:hover,.dropdown-item:hover{
     background: $subbackcolor;
 }
 

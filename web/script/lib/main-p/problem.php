@@ -139,11 +139,11 @@ class problems
     /** 
      * 获取题目信息
      */
-    public static function queryProblem($id)
+    public static function queryProblem($id,$author = false)
     {
         $cf = problems::queryproBlemConfig($id);
         $ju = problems::queryproBlemJudement($id);
-        if (!$cf || !problems::visable($cf)) return array();
+        if (!$cf || (!problems::visable($cf)&&!$author)) return array();
         else {
             $cf['judge'] = $ju;
         }
@@ -182,7 +182,7 @@ class problems
     /**
      * 多选择题选项显示器
      */
-    public static function viewchoose($problem, $idnow)
+    public static function viewchoose($problem, $idnow,$tid=0)
     {
         $choices = $problem["cs"];
         $n = count($choices);
@@ -191,11 +191,12 @@ class problems
             $now = problems::numerToWord($i);
             $nc = $choices[$now];
             $out.= "<div class='form-check'>
-                <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer$idnow' value='$now' checked>
+                <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer[$idnow]' value='$now' checked>
                 <label class='form-check-label' for='radio$idnow-$i' id='labal-$idnow-$now'>$now.$nc</label>
             </div>".
             view::jsMdLt_GetOnly("labal-$idnow-$now",1);
         }
+        echo "<input type='hidden' name='tid[$idnow]' value='$tid'>";
         return $out;
     }
     static function save($id, $data)

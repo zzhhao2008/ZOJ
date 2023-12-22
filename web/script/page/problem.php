@@ -4,6 +4,9 @@ $vis = 0;
 if ($_GET['id']) {
     $thisp = problems::queryProblem($_GET['id']);
     if (empty($thisp)) {
+        if(practice::get_common($_GET['id'])){
+            jsjump("practiceshow?id=".$_GET['id']);
+        }
         echo "<h2>抱歉，该题目不存在或被禁止访问！</h2>";
         $vis = 0;
         $thisp = problems::get404cfg(0);

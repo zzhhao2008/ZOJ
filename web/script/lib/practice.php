@@ -52,7 +52,6 @@ class practice
         global $mypower;
         if (isset($cfg['unlink']) && $cfg['unlink'] >= 1) return 0;
         if (user::is_superuser()) return 1;
-        if (isset($cfg['contestneed']) && $cfg['contestneed']) return 0;
         if ($cfg['pn'] <= $mypower) return 1;
     }
 }

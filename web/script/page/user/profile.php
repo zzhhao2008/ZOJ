@@ -53,8 +53,8 @@ $userconfig = user::read()['profile'];
             <?php } ?>
         </ul>
         <ul class="list-group list-group-horizontal">
-            <?php foreach ($userconfig['practice'] as $v) { ?>
-                <a href="/practice?id=<?= $v ?>" class="list-group-item"><?= $v ?>
+            <?php foreach ($userconfig['practice'] as $k=>$v) { ?>
+                <a href="/practiceshow?id=<?= $k ?>" class="list-group-item"><?=$k," : ", $v ?>
                 </a>
             <?php } ?>
         </ul>

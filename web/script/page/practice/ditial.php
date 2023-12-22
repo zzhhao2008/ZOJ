@@ -8,6 +8,12 @@ if ($_GET['id']) {
         view::foot();
         return;
     endif;
+    if (isset(user::read()['profile']['practice'][$_GET['id']]) && $thisp['chance'] && !user::is_superuser()) {
+        view::header();
+        view::alert("您已经没有作答机会");
+        view::foot();
+        return;
+    }
     $mytry = user::read()['profile']['practice'][$_GET['id']];
     $mytry_show = isset(user::read()['profile']['practice'][$_GET['id']]) ? $mytry : "--";
 } else {
@@ -15,6 +21,39 @@ if ($_GET['id']) {
     echo "<h2>抱歉，请提供ID！</h2>";
     view::foot();
     return;
+}
+if ($_POST) {
+    $score = 0;
+    $scoreOfOne = 100 / $thisp['cmped']['num'];
+    $log = "";
+    $answer = "";
+    foreach ($_POST['answer'] as $k => $v) {
+        $thistid = $_POST['tid'][$k];
+        $thisanswer = $_POST['answer'][$k];
+        $thisanswer = str_replace(' ', '', $thisanswer);
+        $thisanswer = str_replace('\n', '', $thisanswer);
+        $thisanswer = str_replace('\r', '', $thisanswer);
+        $thistcfg = problems::queryproBlemConfig($thistid);
+        $rightanswer = $thistcfg['ans'];
+        if ($rightanswer === $thisanswer) {
+            $score += $scoreOfOne;
+            $log .= "Problem Number:" . $k . " ProblemCommonId $thistid Status:AC \r\n";
+        } else {
+            $score += 0;
+            $log .= "Problem Number:" . $k . " ProblemCommonId $thistid Status:WA \r\n";
+        }
+        $answer .= $thisanswer;
+    }
+    $Submissiondata = array(
+        "problemid" => "Practice" . $tid,
+        "answer" => $answer,
+        "score" => $score,
+        "status" => $score >= 100 ? "AC" : "WA",
+        "reply" => $log.($score >= 100 ? $thisp["successshow"] : "")
+    );
+    if($score >= 100) user::change_intval("rating",$thisp['rating'],1);
+    $newid = judger::updatePractice($Submissiondata);
+    jsjump("/submission?sid=" . $newid);
 }
 /*
 $pcnt = 0;
@@ -66,58 +105,58 @@ view::header("查看练习-" . $thisp['title']);
         <div>
             <h3><?= $thisp['title'] ?></h3>
             <hr>
-            <div id="pFace">
-                <?php
-                $pcnt = 0;
-                $compedface = "\r\n";
-                $newface_lined = explode("\r\n", $thisp['face']);
-                foreach ($newface_lined as $line => $txt) {
-                    $line++;
-                    if ($txt[0] === '^') {
-                        $pcnt++;
-                        $cfg_line = explode(' ', $txt);
-                        switch ($cfg_line[0]) {
-                            case '^problem':
-                                $pcfg = problems::queryProblem($cfg_line[1]);
-                                $thistid = ($cfg_line[3] ?? ($pcnt));
-                                $facetxt = "<div id='faceof$thistid'>" . $thistid . "." . $pcfg['face'] . "</div>\r\n" . view::jsMdLt_GetOnly("faceof$thistid", 1);
-                                if ($pcfg['type'] === "C") {
-                                    switch ($cfg_line[2]) {
-                                        case "Face":
-                                            echo  $facetxt;
-                                            break;
-                                        case "ChooseOnly":
-                                            echo $thistid . "." . problems::viewchoose($pcfg, $pcnt);
-                                            break;
-                                        case "FC":
-                                            echo  $facetxt;
-                                            echo  problems::viewchoose($pcfg, $pcnt);
-                                            break;
-                                        default:
-                                            echo  $facetxt;
-                                            echo  problems::viewchoose($pcfg, $pcnt);
-                                            break;
-                                    }
-                                } else {
-                                    echo $facetxt;
-                                    echo <<<HTML
+            <form method="post">
+                <div id="pFace">
+                    <?php
+                    $pcnt = 0;
+                    $compedface = "\r\n";
+                    $newface_lined = explode("\r\n", $thisp['face']);
+                    foreach ($newface_lined as $line => $txt) {
+                        $line++;
+                        if ($txt[0] === '^') {
+                            $pcnt++;
+                            $cfg_line = explode(' ', $txt);
+                            switch ($cfg_line[0]) {
+                                case '^problem':
+                                    $pcfg = problems::queryProblem($cfg_line[1],1);
+                                    $thistid = ($cfg_line[3] ?? ($pcnt));
+                                    $facetxt = "<div id='faceof$thistid'>" . $thistid . "." . $pcfg['face'] . "</div>\r\n" . view::jsMdLt_GetOnly("faceof$thistid", 1);
+                                    if ($pcfg['type'] === "C") {
+                                        switch ($cfg_line[2]) {
+                                            case "Face":
+                                                echo  $facetxt;
+                                                break;
+                                            case "ChooseOnly":
+                                                echo $thistid . "." . problems::viewchoose($pcfg, $pcnt, $cfg_line[1]);
+                                                break;
+                                            case "FC":
+                                                echo  $facetxt;
+                                                echo  problems::viewchoose($pcfg, $pcnt, $cfg_line[1]);
+                                                break;
+                                            default:
+                                                echo  $facetxt;
+                                                echo  problems::viewchoose($pcfg, $pcnt, $cfg_line[1]);
+                                                break;
+                                        }
+                                    } else {
+                                        echo $facetxt;
+                                        echo <<<HTML
 <a href="problem?id={$cfg_line[1]}" class="btn btn-info">查看此题目详情并提交</a>
 HTML;
-                                }
-                                break;
-                            default:
-                                view::alert("题面解析器类型错误，请练习Admin，在行$line", "danger");
-                                break;
+                                    }
+                                    break;
+                                default:
+                                    view::alert("题面解析器类型错误，请联系Admin，在行$line （Error Function Type）", "danger");
+                                    break;
+                            }
+                        } else {
+                            echo "<div id='txteof$line'>$txt</div>\r\n" . view::jsMdLt_GetOnly("txteof$line", 1);
+                            //echo  $txt . "\r\n";
                         }
-                    } else {
-                        echo "<div id='txteof$line'>$txt</div>\r\n" . view::jsMdLt_GetOnly("txteof$line", 1);
-                        //echo  $txt . "\r\n";
-                    }
-                } ?>
-            </div>
-            <?php
-            //view::jsMdLt_GetOnly("pFace", $compedface);
-            ?>
+                    } ?>
+                    <input type="submit" class="btn btn-primary" value="一键提交所有选择题">
+                </div>
+            </form>
         </div>
     </div>
     <!--辅助侧边栏-右-->
@@ -129,6 +168,9 @@ HTML;
         <div>
             <h4><?= view::icon("tags") ?>标签</h4>
             <code class="badge rounded-pill bg-primary"><?= view::icon("tag") ?><?= implode("</code> <code class=\"badge rounded-pill bg-primary\">" . view::icon("tag"), $thisp['tag']) ?></code>
+            <?php if ($thisp['chance']) { ?>
+                <code class="badge rounded-pill bg-danger">有次数限制</code>
+            <? } ?>
         </div>
         <div>
             <h4><?= view::icon("chat-left-dots") ?>详情</h4>

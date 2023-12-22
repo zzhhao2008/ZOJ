@@ -3,7 +3,7 @@
   'face' => '^problem C4
 ^problem C5
 ^problem C6',
-  'rating' => 100,
+  'rating' => 10000,
   'showans' => 0,
   'successshow' => NULL,
   'createtime' => 1702908409,
@@ -15,7 +15,7 @@
   ),
   'id' => '2',
   'pn' => 1,
-  'chance' => 0,
+  'chance' => 1,
   'cmped' => 
   array (
     'num' => 3,

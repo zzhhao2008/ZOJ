@@ -145,6 +145,11 @@ class user
         $GLOBALS['userprofile'][$key] = $value;
         return $savenow ? user::saveuserchange() : 1;
     }
+    public static function change_intval($key, $value, $savenow = 0): bool
+    {
+        $GLOBALS['userprofile'][$key] += $value;
+        return $savenow ? user::saveuserchange() : 1;
+    }
     /**
      * 给用户配置文件的某个键值添加一个新元素
      */

@@ -15,13 +15,13 @@ function includeC($name)
 {
     return "./script/$name.php";
 }
-include includeLib("data");
-include includeLib("router");
-include includeLib("user");
-include includeLib("view");
-include includeLib("judge");
-include includeLib("submit");
-include includeLib("problem");
+include includeLib("basic/data");
+include includeLib("basic/router");
+include includeLib("basic/user");
+include includeLib("view/view");
+include includeLib("main-p/judge");
+include includeLib("main-p/submit");
+include includeLib("main-p/problem");
 include includeLib("contanct");
 include includeLib("practice");
 function arrayDecode($array,$llimit=8128)
@@ -70,4 +70,4 @@ function getstatic($name)
 {
     return file_get_contents("static/$name");
 }
-$navitems=array("contanct","contest","submissions","problem","practice");
+$navitems=array("contanct","contest","submissions","problem","practice","chat");

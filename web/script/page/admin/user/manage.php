@@ -39,7 +39,7 @@ view::header("用户列表"); ?>
     </thead>
     <tbody>
         <?php foreach ($users as $k) {
-            $v=user::queryUser($k);
+            $v=user::queryUserAdmin($k);
             if (getstau($v) === '已删除' || user::read()['name'] === $k) continue;
         ?>
             <tr class="<?= getcolor($v) ?>">
