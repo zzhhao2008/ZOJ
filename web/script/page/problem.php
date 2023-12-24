@@ -87,7 +87,7 @@ if ($vis === 0) { //默认显示题目列表
 <?php } else { //题目查看 
 ?>
     <main class="row">
-        <div class="col-sm-8 problembox">
+        <div class="col-md-8 problembox">
             <!--题面显示-->
             <div>
                 <h3><?= $thisp['title'] ?></h3>
@@ -134,7 +134,7 @@ if ($vis === 0) { //默认显示题目列表
             </div>
         </div>
         <!--辅助侧边栏-右-->
-        <div class="col-sm-4 problemsubbox">
+        <div class="col-md-4 problemsubbox">
             <div>
                 <h4><?= view::icon("person-vcard") ?>创作者</h4>
                 来自ZSV官方团队

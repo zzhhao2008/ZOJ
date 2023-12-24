@@ -100,7 +100,7 @@ foreach ($newface_lined as $line => $txt) {
 view::header("查看练习-" . $thisp['title']);
 ?>
 <main class="row">
-    <div class="col-sm-8 problembox">
+    <div class="col-md-8 problembox">
         <!--题面显示-->
         <div>
             <h3><?= $thisp['title'] ?></h3>
@@ -160,7 +160,7 @@ HTML;
         </div>
     </div>
     <!--辅助侧边栏-右-->
-    <div class="col-sm-4 problemsubbox">
+    <div class="col-md-4 problemsubbox">
         <div>
             <h4><?= view::icon("person-vcard") ?>创作者</h4>
             来自<?= user::queryUserNick($thisp['creator'], 1, 1) ?>

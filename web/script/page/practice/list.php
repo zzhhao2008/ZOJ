@@ -10,9 +10,9 @@ if (user::is_superuser()) {
         </ul>
     </div>
 <?php     }
-$p=intval($_GET['page'])?intval($_GET['page']):1;
-$practices = practice::get_all_common($p);
-$pagecnt=$paractices['allpage'];
+$p=intval($_GET['page'])??1;
+$practices = practice::get_all_common($p,100);
+$pagecnt=max($paractices['allpage'],1);
 ?>
 <table class="table table-hover">
     <thead>

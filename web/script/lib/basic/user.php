@@ -192,5 +192,9 @@ class user
     {
         return user::read()['profile']['power'] > 1;
     }
+    public static function is_superuserO($id)
+    {
+        return self::queryUser($id)['power'] > 1;
+    }
 }
 

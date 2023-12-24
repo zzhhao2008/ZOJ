@@ -51,7 +51,7 @@
     </div>
     <div class="col-sm-10">
         <div class="abox">
-            <h1 style="line-height: 140px;text-align:center">Welcome To ZZH Code!</h1>
+            <h2 style="text-align:center;margin-top:35px" id="welcometxt">Welcome To ZZH Code!</h2>
         </div>
     </div>
 </div>
@@ -113,6 +113,12 @@
     sh = setInterval(function() {
         gettime()
     }, 1000);
+    fetch("api/speak")
+        .then(res => res.json())
+        .then(data => setTimeout(function() {
+            document.getElementById("welcometxt").innerHTML = data;
+        }, 1000))
+        .catch(err => console.log(err));
 </script>
 <style>
     h1 {

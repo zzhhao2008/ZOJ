@@ -6,8 +6,11 @@ Router::any("judgedetial", "api/judgedetial");
 Router::any("judgeres", "api/judgeres");
 Router::any("print","api/printer");
 Router::any("visituser","user/visit");
+Router::any("api/speak", "api/goodspeak");
 
+Router::login("getcontest-p","api/getproblemincontest");
 Router::login("contest", "contest/index");
+Router::login("contestshowing", "contest/detial");
 Router::login("contanct", "contanct/list");
 Router::login("contancting", "contanct/show");
 Router::login("ccontanct", "contanct/create");

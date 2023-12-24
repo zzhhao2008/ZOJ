@@ -171,7 +171,7 @@ class problems
             $now = problems::numerToWord($i);
             $nc = $choices[$now];
             echo "<div class='form-check'>
-                <input type='radio' class='form-check-input' id='radio$i' name='answer' value='$now' checked>
+                <input type='radio' class='form-check-input' id='radio$i' name='answer' value='$now'>
                 <label class='form-check-label' for='radio$i' id='labal$now'>$now.$nc</label>
             </div>";
             view::jsMdLt("labal$now",$now.".".$nc);
@@ -191,7 +191,7 @@ class problems
             $now = problems::numerToWord($i);
             $nc = $choices[$now];
             $out.= "<div class='form-check'>
-                <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer[$idnow]' value='$now' checked>
+                <input type='radio' class='form-check-input' id='radio$idnow-$i' name='answer[$idnow]' value='$now'>
                 <label class='form-check-label' for='radio$idnow-$i' id='labal-$idnow-$now'>$now.$nc</label>
             </div>".
             view::jsMdLt_GetOnly("labal-$idnow-$now",1);

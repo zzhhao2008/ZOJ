@@ -3,4 +3,5 @@
   'selfset' => 
   array (
   ),
+  'editortheme' => 'tomorrow_night',
 );?>

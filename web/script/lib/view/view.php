@@ -125,9 +125,16 @@ class view
         view::import();
         exit;
     }
+    public static function B403()
+    {
+        include includePage("error/403");
+        view::import();
+        exit;
+    }
 
     public static function aceeditor($code="", $language = "c_cpp",$rl=0,$outname="")
     {
+        global $editorthemeid;
         $code = str_replace("`", "\`", $code);
         global $viewimport;
         $id = 0;
@@ -142,13 +149,15 @@ class view
         <script>
         initEditor($id,'$language',$rl);
         editors[$id].insert(`$code`);
+        editors[$id].setTheme("ace/theme/$editorthemeid");
         </script>
-HTML;
+HTML; 
         return $id;
     }
 }
 $myThemeCfg=[];
 $myThemeID='light';
+$editorthemeid="tomorrow";
 class theme{
     static public function getCfg_user($userid){
         return DB::getdata("theme/user/$userid");
@@ -165,17 +174,23 @@ class theme{
         $myThemeID=$newid;
         return theme::saveChange();
     }
+    static public function changeid($neweid){
+        global $editorthemeid;
+        $editorthemeid=$neweid; //编辑器主题
+        return theme::saveChange();
+    }
 
     static public function saveChange(){
-        global $myThemeCfg,$myThemeID;
+        global $myThemeCfg,$myThemeID,$editorthemeid;
         $cfgU=array(
             "theme"=>$myThemeID,
             "selfset"=>$myThemeID==='self'?$myThemeCfg:[],
+            "editortheme"=>$editorthemeid,
         );
         return DB::putdata("theme/user/".user::read()['name'],$cfgU);
     }
     static public function init(){
-        global $mypower,$myThemeCfg,$myThemeID;
+        global $mypower,$myThemeCfg,$myThemeID,$editorthemeid;
         if($mypower<=0) {
             $myThemeCfg=theme::getCfg_Common("light");
         }
@@ -192,6 +207,9 @@ class theme{
                     $myThemeCfg= theme::getCfg_Common($mycfg['theme']);
                     $myThemeID=$mycfg['theme'];
                 }
+            }
+            if($mycfg['editortheme']){
+                $editorthemeid=$mycfg['editortheme'];
             }
         }
         return 1;

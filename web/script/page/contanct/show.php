@@ -66,7 +66,7 @@ $reply = contanct_reply::getData($cid);
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-md-8">
         <div class="abox my-b-m p-2" style="<?= count($reply) === 0 ? "" : "display:none" ?>" id="wrt">
             <h5>写回复</h5>
             <hr>
@@ -85,7 +85,7 @@ $reply = contanct_reply::getData($cid);
         if (!user::is_superuser() && $rep['del'] === 1) continue;
     ?>
         <p></p>
-        <div class="col-sm-8">
+        <div class="col-md-8">
             <div class="abox <?= $rep['submitor'] === user::read()['name'] ? "my" : ($contanctSelf['creator'] === $rep['submitor'] ? "master" : "visitor") ?>-b-m p-2">
                 <b style="font-size: larger;"><?= view::icon("people") ?><?= user::queryUserNick($rep['submitor'], 1, 1)  ?></b><br>
                 <code><?= getDate_ToNow($rep['time']) ?></code>

@@ -48,7 +48,7 @@ class DB{
             $datalist[]=$v;
         }
         $maxlimit=max(count($datalist)-1,0);
-        $allpage=ceil($maxlimit/$limit);
+        $allpage=ceil(count($datalist)/$limit);
         if($page!=0){
             $start = min($limit*($page-1),$maxlimit);
             $end = min($limit*$page-1,$maxlimit);

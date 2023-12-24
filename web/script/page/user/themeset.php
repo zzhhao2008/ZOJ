@@ -1,6 +1,7 @@
 <?php
 if ($_POST['id']) {
     theme::changemy($_POST['id']);
+    theme::changeid($_POST['eid']);
     jsjump("/profile");
 }
 view::header("主题设置");
@@ -14,7 +15,8 @@ view::header("主题设置");
         <option value="pink">猛男粉</option>
         <option value="kun">坤色</option>
     </select>
-    <input class="btn btn-primary" value="提交" type="submit">
+    编辑器主题：<input name="eid" value="tomorrow">
+    <input  class="btn btn-primary" value="提交" type="submit">
 </form>
 
 <?php view::foot() ?>
