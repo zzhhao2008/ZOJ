@@ -99,4 +99,7 @@ class DB{
         //返回$r
         return $data;
     }
+    public static function createbase($path,$basename){
+        return mkdir("../data/$path/$basename");
+    }
 }

@@ -55,6 +55,12 @@ view::header("比赛详情-" . $ccfg['title']);
             </div>
             <div id="chart" style="display: none;">
                 <h4>排行榜</h4>
+                <?php
+                $chart=new contest_chart;
+                $chart->contestid=$cid;
+                $chart->init();
+                var_dump($chart->chartdata);
+                ?>
             </div>
             <div id="problemview" style="display: none;">
                 <h4>题目</h4>
@@ -219,6 +225,8 @@ if (contest::going($ccfg)) { ?>
         viewer.appendChild(form);
         if (usingscee != 0) {
             initEditor(1, usingscee, 0);
+            editors[1].setTheme("ace/theme/<?=$editorthemeid?>");
         }
+        import('/static/js/mathtex.js')
     }
 </script>

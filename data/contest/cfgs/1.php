@@ -1,6 +1,6 @@
 <?php return array (
   'title' => 'ZSV 月赛 2023-Last',
-  'desc' => '欢迎来到ZSV月赛2023-12，这是今年最后一场月赛，最高可获得1000Rating',
+  'desc' => '欢迎来到ZSV月赛2023-12，这是今年最后一场月赛，最高可获得$ 1000 $Rating',
   'starttime' => 1703256944,
   'endtime' => 1703905350,
   'problemlist' => 
