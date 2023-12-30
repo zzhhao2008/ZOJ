@@ -1,7 +1,7 @@
 <?php return array (
   'nick' => 'dinner',
   'password' => 'e10adc3949ba59abbe56e057f20f883e',
-  'llt' => 1703337147,
+  'llt' => 1703849297,
   'power' => 2,
   'rating' => 11500,
   'try' => 
@@ -23,13 +23,8 @@
     2 => 100,
   ),
   'email' => 'zzhhao2008@163.com',
-  'about' => 'AwA Zn+Mn+2Y! AwA QwQ Q_Q',
+  'about' => 'AwA QwQ Q_Q 我是蒟蒻',
   'dt' => 
   array (
-    0 => 
-    array (
-      'time' => 1703257331,
-      'art' => '创建了题目 #P1的讨论版（P-1-P1-test）',
-    ),
   ),
 );?>

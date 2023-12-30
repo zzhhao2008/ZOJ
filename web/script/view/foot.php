@@ -1,11 +1,12 @@
-<div style="color: gray;" class="container footbar">
+<div class="container footbar">
     <hr class="hr">
-
+    Version 5.2.3.9(2023-12-30) ZSVZZH
 </div>
 <style>
     .footbar {
         text-align: center;
         background: none;
+        color: rgba(0,0,0,0.1);
     }
 
     .hr {

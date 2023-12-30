@@ -11,7 +11,8 @@ view::header("主题设置");
     <select class="form-select" id="sel1" name="id">
         <option value="light">亮色（默认）</option>
         <option value="dark">夜晚</option>
-        <option value="blue">蓝调</option>
+        <option value="blue">蓝</option>
+        <option value="dai">黛</option>
         <option value="pink">猛男粉</option>
         <option value="kun">坤色</option>
     </select>
