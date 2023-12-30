@@ -17,7 +17,7 @@ function getDate_ToNow($stamp)
     if ($diff >$day*7) {
         return date("Y-m-d H:i:s", $stamp);
     } elseif($diff > $day) {
-        return $diff%$day . "天前";
+        return round($diff / (60*24*60),2) . "天前";
     }
     elseif($diff > 3600) {
         return $diff%3600 . "小时前";

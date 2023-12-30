@@ -21,4 +21,11 @@
     'floor' => 3,
     'del' => 1,
   ),
+  3 => 
+  array (
+    'submitor' => 'zzzzzzzzccccccc',
+    'time' => 1703760032,
+    'content' => '不能有多选的吗',
+    'floor' => 4,
+  ),
 );?>
