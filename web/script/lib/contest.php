@@ -73,6 +73,11 @@ class contest
                 "showtruescore" => 1,
                 "showturchart" => 1,
                 "joinable" => 1
+            ),
+            "OOI"=>array(
+                "showtruescore" => 0,
+                "showturchart" => 1,
+                "joinable" => 1
             )
         );
         return $def[$type];
@@ -127,9 +132,7 @@ class contest
     public static function join($contestid)
     {
         $contestcfg = self::query($contestid);
-        if (self::going($contestcfg)) return 0; //比赛正在进行
-        if (self::joined($contestcfg['joinedusers'])) return 0; //已经报名
-        if (self::end($contestcfg)) return 0; //比赛已经结束
+        
         $contestcfg['joinedusers'][] = user::read()['name'];
         self::put($contestid, $contestcfg);
         return 1;
@@ -206,7 +209,10 @@ class contest_chart
             if ($v['trueid'] !== $contestcfg["problemlist"][$tid]) {
                 continue;
             }
-            $cnt[$submitor]['scoreof'][$tid] = max($cnt[$submitor]['scoreof'][$tid], $v['score']);
+            if(!isset($cnt[$submitor]['scoreof'][$tid])){
+                $cnt[$submitor]['scoreof'][$tid] = $v['score'];
+            }
+            else $cnt[$submitor]['scoreof'][$tid] = max($cnt[$submitor]['scoreof'][$tid], $v['score']);
             if ($this->showtruth == 0) {
                 $cnt[$submitor]['scoreof'][$tid] = 100;
             }
