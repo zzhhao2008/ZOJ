@@ -23,5 +23,5 @@
   array (
     0 => 'test2',
   ),
-  'type' => 'OPEN',
+  'type' => 'OOI',
 );?>

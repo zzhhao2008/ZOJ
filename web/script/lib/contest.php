@@ -76,7 +76,7 @@ class contest
             ),
             "OOI"=>array(
                 "showtruescore" => 0,
-                "showturchart" => 1,
+                "showturchart" => 0,
                 "joinable" => 1
             )
         );
@@ -228,8 +228,9 @@ class contest_chart
             }
         }
         //按totalscore降序排列
-        uksort($sortingdata, function ($a, $b) {
-            if ($a['totalscore'] == $b['totalscore']) {
+        usort($sortingdata, function ($a, $b) {
+            if ($a['totalscore'] === $b['totalscore']) {
+                
                 return 0;
             }
             return ($a['totalscore'] > $b['totalscore']) ? -1 : 1;
