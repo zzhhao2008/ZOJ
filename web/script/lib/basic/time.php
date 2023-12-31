@@ -1,6 +1,7 @@
 <?php
 function getDate_full($stamp)
 {
+    date_default_timezone_set('Asia/Shanghai');
     return date("Y-m-d H:i:s", $stamp);
 }
 /**

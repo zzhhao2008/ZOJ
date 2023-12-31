@@ -6,8 +6,13 @@ if (empty($ccfg)) {
     jsjump("contest");
     exit;
 }
+if (!contest::joined($ccfg['joinedusers'])) {
+    if ($_POST['join'] === "join" && contest::joinable($ccfg, $myid)) {
+        contest::join($cid);
+        jsjump("contestshowing?id=".$cid);
+    }
+}
 if (!contest::visiable($ccfg, $myid)) {
-
     view::alert("您暂时无法查看此比赛", "danger", 10000);
     view::B403();
     exit;
@@ -19,52 +24,62 @@ if (contest::going($ccfg)) {
 } else {
     $stau = "未开始";
 }
-if (!contest::joined($ccfg['joinedusers'])) {
-}
+
 view::header("比赛详情-" . $ccfg['title']);
 ?>
 <main class="row">
     <div class="col-md-8 problembox">
         <!--题面显示-->
         <div>
-            <h3><?= $ccfg['title'] ?></h3>
-            <ul class="nav nav-pills nav-justified">
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:tabto('pFace')">描述</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:tabto('problemlist')">题目列表</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:tabto('chart')">排行榜</a>
-                </li>
-            </ul>
-            <hr>
-            <div id="pFace"></div>
-            <?= view::jsMdLt("pFace", $ccfg['desc']); ?>
-            <div id="problemlist" style="display: none;">
-                <h4>题目列表</h4>
-                <div class="list-group">
-                    <?php foreach ($ccfg['problemlist'] as $k => $v) {
-                        $thisp = problems::queryproBlemConfig($v);
-                        if (empty($thisp)) continue;
-                    ?>
-                        <a href="javascript:problem(`<?= $v ?>`);tabto('problemview')" class="list-group-item list-group-item-action" style="opacity: 0.5;"><?= problems::numerToWord($k + 1), " : ", $thisp['title'] ?></a>
-                    <?php } ?>
+            <?php if (contest::joined($ccfg['joinedusers'])) : ?>
+                <h3><?= $ccfg['title'] ?></h3>
+                <ul class="nav nav-pills nav-justified">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:tabto('pFace')">描述</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:tabto('problemlist')">题目列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:tabto('chart')">排行榜</a>
+                    </li>
+                </ul>
+                <hr>
+                <div id="pFace"></div>
+                <?= view::jsMdLt("pFace", $ccfg['desc']); ?>
+                <div id="problemlist" style="display: none;">
+                    <h4>题目列表</h4>
+                    <div class="list-group">
+                        <?php if(contest::going($ccfg)) foreach ($ccfg['problemlist'] as $k => $v) {
+                            $thisp = problems::queryproBlemConfig($v);
+                            if (empty($thisp)) continue;
+                        ?>
+                            <a href="javascript:problem(`<?= $v ?>`,`<?= $k ?>`);tabto('problemview')" class="list-group-item list-group-item-action" style="opacity: 0.5;"><?= problems::numerToWord($k + 1), " : ", $thisp['title'] ?></a>
+                        <?php } ?>
+                    </div>
                 </div>
-            </div>
-            <div id="chart" style="display: none;">
-                <h4>排行榜</h4>
-                <?php
-                $chart=new contest_chart;
-                $chart->contestid=$cid;
-                $chart->init();
-                var_dump($chart->chartdata);
-                ?>
-            </div>
-            <div id="problemview" style="display: none;">
-                <h4>题目</h4>
-            </div>
+                <div id="chart" style="display: none;">
+                    <h4>排行榜</h4>
+                    <?php
+                    $chart = new contest_chart;
+                    $chart->contestid = $cid;
+                    $chart->init();
+                    //var_dump($chart->chartdata);
+                    $chart->show();
+
+                    ?>
+                </div>
+                <div id="problemview" style="display: none;">
+                    <h4>题目</h4>
+                </div>
+            <? else : ?>
+                <div id="pFace"></div>
+                <?= view::jsMdLt("pFace", $ccfg['desc']); ?>
+                <form method="post">
+                    <input value="join" name="join" type="hidden">
+                    <input class="btn btn-danger" value="立即报名" type="submit">
+                </form>
+            <? endif; ?>
         </div>
     </div>
     <!--辅助侧边栏-右-->
@@ -133,7 +148,8 @@ if (contest::going($ccfg)) { ?>
         document.getElementById(id).style.display = "block";
     }
 
-    function problem(pid) {
+    function problem(pid, tureid) {
+        window.location.href = "problem?id=" + pid + "&cid=<?= $cid ?>&trueid=" + tureid;
         fetch("getcontest-p?pid=" + pid + "&cid=<?= $cid ?>")
             .then(response => response.json())
             .then(data => problemdecode(data));
@@ -225,7 +241,7 @@ if (contest::going($ccfg)) { ?>
         viewer.appendChild(form);
         if (usingscee != 0) {
             initEditor(1, usingscee, 0);
-            editors[1].setTheme("ace/theme/<?=$editorthemeid?>");
+            editors[1].setTheme("ace/theme/<?= $editorthemeid ?>");
         }
         import('/static/js/mathtex.js')
     }

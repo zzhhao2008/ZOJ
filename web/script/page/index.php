@@ -91,7 +91,7 @@
         <div class="abox">
             <h4>公告</h4>
             <ul>
-                <li><a class="text-danger" href="/contancting?cid=1-P1-test"><?=view::icon("exclamation-circle")?>必读</a></li>
+                <li><a class="text-danger" href="/contancting?cid=1-P1-test"><?= view::icon("exclamation-circle") ?>必读</a></li>
             </ul>
         </div>
     </div>
@@ -115,9 +115,9 @@
     }, 1000);
     fetch("api/speak")
         .then(res => res.json())
-        .then(data => setTimeout(function() {
-            document.getElementById("welcometxt").innerHTML = data;
-        }, 1000))
+        .then(data =>
+            document.getElementById("welcometxt").innerHTML = data
+        )
         .catch(err => console.log(err));
 </script>
 <style>

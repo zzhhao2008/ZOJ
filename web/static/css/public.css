@@ -32,3 +32,7 @@ blockquote>p{
     border:1px solid #0e90d2;
     margin-bottom: 2px;
 }
+
+img{
+    max-width: 100%;
+}

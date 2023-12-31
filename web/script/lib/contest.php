@@ -124,6 +124,16 @@ class contest
     {
         return $contestcfg['endtime'] < time();
     }
+    public static function join($contestid)
+    {
+        $contestcfg = self::query($contestid);
+        if (self::going($contestcfg)) return 0; //比赛正在进行
+        if (self::joined($contestcfg['joinedusers'])) return 0; //已经报名
+        if (self::end($contestcfg)) return 0; //比赛已经结束
+        $contestcfg['joinedusers'][] = user::read()['name'];
+        self::put($contestid, $contestcfg);
+        return 1;
+    }
 }
 class contest_submission
 {
@@ -153,6 +163,24 @@ class contest_submission
     public static function createbase($cid)
     {
         return DB::createbase("/contest/submissions/", $cid);
+    }
+    public static function submit($cid,$pid,$ans)
+    {
+        $submitor=user::read()['name'];
+        $ccfg=contest::query($cid);
+        if(!contest::joined($ccfg['joinedusers'])) return 0; //没有参加比赛
+        $trueid=$ccfg['problemlist'][$pid];
+        if(empty($trueid)) return 0; //题目不存在
+        $subdata = array(
+            "answer"=>$ans, 
+            'problemid' => $pid,
+            'submitor' => user::read()['name'],
+            'score' => 0,
+            'trueid' => $trueid,
+        );
+        $subid=count(DB::scanName("/contest/submissions/$cid"))+1;
+        $subid="$cid-$submitor-$subid";
+        return self::put($cid,$subid,$subdata);
     }
 }
 class contest_chart
@@ -189,12 +217,12 @@ class contest_chart
                 $sortingdata[$k] = array(
                     "scoreof" => $v['scoreof'],
                     "totalscore" => array_sum($v['scoreof']),
-                    "uid"=>$k
+                    "uid" => $k
                 );
             }
         }
         //按totalscore降序排列
-        uksort($sortingdata, function($a, $b) {
+        uksort($sortingdata, function ($a, $b) {
             if ($a['totalscore'] == $b['totalscore']) {
                 return 0;
             }
@@ -203,5 +231,30 @@ class contest_chart
         //按uid升序排列
         $this->chartdata = $sortingdata;
         return true;
+    }
+    function show()
+    {
+        echo "<div id='chart'><table class='table table-hover' >";
+        echo "<tr class='table-success'><th>提交者</th>";
+        foreach ($this->cfg['problemlist'] as $k => $v) {
+            echo "<th>" . problems::numerToWord($k + 1) . "</th>";
+        }
+        echo "<th>总分</th></tr>";
+        foreach ($this->chartdata as $v) {
+            echo "<tr>";
+            echo "<td>" . user::queryUserNick($v['uid'], 1, 1) . "</td>";
+            foreach ($this->cfg['problemlist'] as $k => $sco) {
+                $sco = $v["scoreof"][$k];
+                if (!isset($v["scoreof"][$k])) echo "<td>--";
+                else if ($sco === 0) echo "<td class='table-danger'>$sco";
+                else if ($sco > 0 && $sco < 100) echo "<td class='table-warning'>$sco";
+                else echo "<td class='table-success'>$sco";
+                echo "</td>";
+            }
+            echo "<td>{$v['totalscore']}</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo "</div>";
     }
 }
