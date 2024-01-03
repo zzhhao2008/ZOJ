@@ -1,7 +1,7 @@
 <?php return array (
   'title' => 'ZSV 2023~2024年赛',
   'desc' => '欢迎，本次比赛为跨年比赛，最高可获得$ 1000 $Rating',
-  'starttime' => 170403400,
+  'starttime' => 1704034800,
   'endtime' => 1704146400,
   'problemlist' => 
   array (
@@ -21,7 +21,8 @@
   ),
   'joinedusers' => 
   array (
-    0 => 'test2',
+    0 => 'ZZH',
+    1 => 'zeze',
   ),
   'type' => 'OOI',
 );?>

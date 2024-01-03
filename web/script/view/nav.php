@@ -30,6 +30,9 @@
 					<li class="nav-item">
 						<a class="nav-link" id="submissionsnaver" href="/submissions"><?=view::icon("record2-fill")?>提交记录</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="teamworknaver" href="/teamwork"><?=view::icon("microsoft-teams")?>团队</a>
+					</li>
 					<!--li class="nav-item">
 						<a class="nav-link" id="chatnaver" aria-current="page" href="/chat"><?=view::icon("wechat")?>聊天</a>
 					</li-->

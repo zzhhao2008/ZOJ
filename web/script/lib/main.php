@@ -26,6 +26,7 @@ include includeLib("main-p/problem");
 include includeLib("contanct");
 include includeLib("contest");
 include includeLib("practice");
+include includeLib("team/main");
 function arrayDecode($array,$llimit=8128)
 {
     $req = [];
@@ -72,4 +73,4 @@ function getstatic($name)
 {
     return file_get_contents("static/$name");
 }
-$navitems=array("contanct","contest","submissions","problem","practice","chat");
+$navitems=array("contanct","contest","submissions","problem","practice","chat","teamwork");
