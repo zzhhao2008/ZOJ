@@ -1,4 +1,6 @@
+
 <?php view::header(); ?>
+<!-- 真的好喜欢ZYMY啊，可爱的小土豆 -->
 <div class="row">
     <div class="col-sm-8 abox first_row">
         <div id="demo" class="carousel slide" data-bs-ride="carousel">
