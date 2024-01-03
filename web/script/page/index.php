@@ -1,4 +1,3 @@
-
 <?php view::header(); ?>
 <!-- 真的好喜欢ZYMY啊，可爱的小土豆 -->
 <div class="row">
@@ -60,32 +59,41 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="abox">
-            <h4>活动</h4>
+            <h4>近期比赛</h4>
             <div id="accordion">
-                <div class="card">
-                    <div class="card-header">
-                        <a class="btn" data-bs-toggle="collapse" href="#collapseAct1">
-                            开发中
-                        </a>
-                    </div>
-                    <div id="collapseAct1" class="collapse show" data-bs-parent="#accordion">
-                        <div class="card-body">
-                            ABAB
+                <?php
+                $contestlist = contest::get_list(1, 10);
+                foreach ($contestlist as $k=>$contest) {
+                    if($contest['starttime']>time()){
+                        $status = "<span class='text-warning'>未开始</span>";
+                    }
+                    elseif($contest['endtime']<time()){
+                        $status = "<span class='text-success'>已结束</span>";
+                    }
+                    else{
+                        $status = "<span class='text-danger'>进行中</span>";
+                        if(contest::joined($contest['joinedusers'])){
+                            $status .= "<span class='text-success'>√</span>";
+                        }
+                        elseif(contest::joinable($contest,user::read()['name'])){
+                            $status .= "<span class='text-info'>√</span>";
+                        }
+                    }
+                ?>
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="btn" data-bs-toggle="collapse" href="#collapseAct<?=$k?>">
+                                <?=$status,":",$contest['title']?>
+                            </a>
+                        </div>
+                        <div id="collapseAct<?=$k?>" class="collapse" data-bs-parent="#accordion">
+                            <div class="card-body">
+                                <p>报名人数：<?=count($contest['joinedusers'])?>  题目数量：<?=count($contest['problemlist'])?> 赛制：<?=$contest['type']?></p>
+                                <?= $contest['desc'] ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseAct2">
-                            选项二
-                        </a>
-                    </div>
-                    <div id="collapseAct2" class="collapse" data-bs-parent="#accordion">
-                        <div class="card-body">
-                            #2 内容：菜鸟教程 -- 学的不仅是技术，更是梦想！！！
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
