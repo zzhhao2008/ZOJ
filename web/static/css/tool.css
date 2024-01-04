@@ -76,3 +76,33 @@
     border-radius: 5px;
     font-weight: 300;
 }
+
+.s-table-item{
+    padding: 5px;
+    padding-left: 10px;
+    position: relative;
+}
+.s-table-item>div{
+    border: 1px solid;
+    border-radius: 5px;
+    
+    height: 100px;
+    max-height: 100px;
+    overflow: auto;
+    word-break: break-all;
+    padding: 2px;
+    background: rgba(255,255,255,0.5);
+}
+.s-table-item>div::-webkit-scrollbar{
+    width: 1px;
+}
+.s-table-item:after{
+    content: "123";
+    font-size: 0;
+    position: absolute;
+    left: 4px;
+    width: 3px;
+    background: #fff;
+    top: 0;
+    height: 100%;
+}

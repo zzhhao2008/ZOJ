@@ -27,6 +27,7 @@ include includeLib("contanct");
 include includeLib("contest");
 include includeLib("practice");
 include includeLib("team/main");
+include includeLib("team/manage");
 function arrayDecode($array,$llimit=8128)
 {
     $req = [];
