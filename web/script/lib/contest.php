@@ -150,7 +150,7 @@ class contest_submission
     }
     public static function get_all($cid, $sx = [])
     {
-        $data = DB::scanData("/contest/submissions/$cid");
+        $data = DB::scanData("/contest/submissions/$cid",0);
         //开始筛选数据,按照$sx，如$sx['submitor']="abc"代表
         //筛选出所有提交者是abc的提交
         if (empty($sx)) return $data; //没有筛选条件
@@ -203,6 +203,7 @@ class contest_chart
         $cnt = [];
 
         $this->showtruth = $this->showtruth ?? contest::ContestConfig_Default($contestcfg['type'])['showturchart'];
+        if(contest::end($this->cfg)) $this->showtruth = 1;
         foreach ($submissiondata as $v) {
             $submitor = $v['submitor'];
             $tid = $v['problemid'];

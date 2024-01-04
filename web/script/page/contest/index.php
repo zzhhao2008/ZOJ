@@ -8,7 +8,7 @@ $contestlist = contest::get_list(0);
             <th class="thint">题目数量</th>
             <th class="thint">报名人数</th>
             <th>标题</th>
-            <th class="mthint">标签</th>
+            <th>标签</th>
         </tr>
     </thead>
     <tbody>

@@ -45,7 +45,7 @@ class DB{
             // 将文件名中的.php替换为空
             $v=str_replace(".php","",$v);
             // 将文件名作为key，文件内容作为value，存入到datas数组中
-            $datalist[]=$v;
+            $datalist[$k]=$v;
         }
         $maxlimit=max(count($datalist)-1,0);
         $allpage=ceil(count($datalist)/$limit);
@@ -59,6 +59,10 @@ class DB{
 
         $datalist=array_reverse($datalist);
         for($i=$start;$i<=$end;$i++){
+            if($raw){
+                $datas[$datalist[$i]]=DB::getdata($path.$datalist[$i]);
+                continue;
+            }
             $datas[$i]=DB::getdata($path.$datalist[$i]);
         }
         if(count($datalist)==0) $datas=[];

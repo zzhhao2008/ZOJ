@@ -7,6 +7,8 @@ Router::any("judgeres", "api/judgeres");
 Router::any("print","api/printer");
 Router::any("visituser","user/visit");
 Router::any("api/speak", "api/goodspeak");
+Router::any("clist", "api/contestlist");
+Router::any("cjudge", "api/judgecontest");
 
 Router::login("getcontest-p","api/getproblemincontest");
 Router::login("contest", "contest/index");
@@ -23,7 +25,6 @@ Router::login("submissions", "submission/list");
 Router::login("contanctmanage", "contanct/manage");
 Router::login("themeset","user/themeset");
 Router::login("practiceshow","practice/ditial");
-Router::login("chat","chat/index");
 Router::login("teamwork","teamwork/console");
 
 Router::guest("practice", "user/login");
