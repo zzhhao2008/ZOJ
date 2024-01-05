@@ -26,6 +26,7 @@ Router::login("contanctmanage", "contanct/manage");
 Router::login("themeset","user/themeset");
 Router::login("practiceshow","practice/ditial");
 Router::login("teamwork","teamwork/console");
+Router::login("team/manage","teamwork/manage");
 
 Router::guest("practice", "user/login");
 Router::guest("logup", "user/logup");

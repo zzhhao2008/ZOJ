@@ -50,7 +50,7 @@ view::header("比赛详情-" . $ccfg['title']);
                 <div id="problemlist" style="display: none;">
                     <h4>题目列表</h4>
                     <div class="list-group">
-                        <?php if(contest::going($ccfg)) foreach ($ccfg['problemlist'] as $k => $v) {
+                        <?php if(contest::going($ccfg)||contest::end($ccfg)) foreach ($ccfg['problemlist'] as $k => $v) {
                             $thisp = problems::queryproBlemConfig($v);
                             if (empty($thisp)) continue;
                         ?>

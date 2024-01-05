@@ -23,6 +23,9 @@ if ($_GET['cid']) {
         view::alert("比赛已结束！");
         $vis = 0;
         $stau = "已结束";
+        if(problems::visable($thisp)){
+            $vis=1;
+        }
     } else {
         view::alert("比赛未开始！");
         $vis = 0;

@@ -31,7 +31,7 @@ class team
             "type" => "basic",
             "rating" => 1000,
             "cfgto" => [],
-            "joinable"=>1
+            "joinable" => 1
         ];
         $id = count(DB::scanName("team/teamconfig"));
         $empty['id'] = $id;
@@ -40,11 +40,12 @@ class team
         self::join($id);
         return $id;
     }
-    static function joinable($tid){
+    static function joinable($tid)
+    {
         global $mypower;
-        $myid=user::read()['name'];
-        $teamcfg=self::get($tid);
-        return ($teamcfg['joinable']<=$mypower)&&($teamcfg['cfgto'][$myid]['ban']!==1);
+        $myid = user::read()['name'];
+        $teamcfg = self::get($tid);
+        return ($teamcfg['joinable'] <= $mypower) && ($teamcfg['cfgto'][$myid]['ban'] !== 1);
     }
     static function join($tid)
     {
@@ -53,10 +54,10 @@ class team
             $mycfg['joined'][] = $tid;
             DB::putdata("team/user/" . user::read()['name'], $mycfg);
         }
-        $teamcfg=self::get($tid);
-        if(!in_array(user::read()['name'],$teamcfg['members']) && self::joinable($tid)){
-            $teamcfg['members'][]=user::read()['name'];
-            DB::putdata("team/teamconfig/$tid",$teamcfg);
+        $teamcfg = self::get($tid);
+        if (!in_array(user::read()['name'], $teamcfg['members']) && self::joinable($tid)) {
+            $teamcfg['members'][] = user::read()['name'];
+            DB::putdata("team/teamconfig/$tid", $teamcfg);
         }
     }
     static function init()
@@ -72,30 +73,40 @@ class team
         }
         return $mycfg;
     }
-    static function joined($tid,$uid="\$\$myself\#\#"){
-        if($uid=="\$\$myself\#\#") $uid=user::read()['name'];
-        $teamcfg=self::get($tid);
-        return in_array($uid,$teamcfg['members']);
+    static function joined($tid, $uid = "\$\$myself\#\#")
+    {
+        if ($uid == "\$\$myself\#\#") $uid = user::read()['name'];
+        $teamcfg = self::get($tid);
+        return in_array($uid, $teamcfg['members']);
     }
-    static function is_leader($tid,$uid="\$\$myself\#\#"){
-        if($uid=="\$\$myself\#\#") $uid=user::read()['name'];
-        $teamcfg=self::get($tid);
-        return in_array($uid,$teamcfg['leaders']) || user::is_superuserO($uid);
+    static function is_leader($tid, $uid = "\$\$myself\#\#")
+    {
+        if ($uid == "\$\$myself\#\#") $uid = user::read()['name'];
+        $teamcfg = self::get($tid);
+        return in_array($uid, $teamcfg['leaders']) || user::is_superuserO($uid);
     }
-    static function visiable($tid){
-        if(team::joinable($tid)) return 1;
-        if(user::is_superuser()) return 1;
-        if(self::joined($tid)) return 1;
+    static function visiable($tid)
+    {
+        if (team::joinable($tid)) return 1;
+        if (user::is_superuser()) return 1;
+        if (self::joined($tid)) return 1;
         return 0;
     }
-    static function goout($tid){
-        $mycfg=self::user();
-        if(in_array($tid,$mycfg['joined'])){
-            $mycfg['joined']=array_diff($mycfg['joined'],[$tid]);
+    static function goout($tid)
+    {
+        $teamconifg = team::get($tid);
+        $uid = user::read()['name'];
+        $mycfg = self::user();
+        //判断是否为唯一的leader
+        if (count($teamconifg['leaders']) == 1) {
+            if ($uid === $teamconifg['leaders'][0]) {
+                return 0;
+            }
+        }
+        if (in_array($tid, $mycfg['joined'])) {
+            $mycfg['joined'] = array_diff($mycfg['joined'], [$tid]);
             DB::putdata("team/user/" . user::read()['name'], $mycfg);
         }
-        $uid=user::read()['name'];
-        $teamconifg = team::get($tid);
         //查找members中值为$uid的元素并删除
         $teamconifg['members'] = array_diff($teamconifg['members'], [$uid]);
         $teamconifg['members'] = array_values($teamconifg['members']);

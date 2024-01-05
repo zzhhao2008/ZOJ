@@ -1,13 +1,19 @@
 <?php
 $myteams = team::init();
 if ($_GET['no']) {
-    echo json_encode(team::get($_GET['catch']));
+    if(!team::get($_GET['catch'])) echo 0;
+    else if(!team::joined($_GET['catch'])) echo 0;
+    else echo json_encode(team::get($_GET['catch']));
     exit;
 }
 if ($_GET['goout'] && isset($_GET['id'])) {
-    team::goout($_GET['id']);
-    jsjump("/teamwork");
-    exit;
+    if(team::goout($_GET['id'])){
+        jsjump("/teamwork");
+        exit;
+    }
+    else{
+        view::alert("失败","danger");
+    }
 }
 if ($_GET['join'] && isset($_GET['id'])) {
     if (team::joinable($_GET['id'])) {
@@ -86,20 +92,24 @@ view::header("团队控制台"); ?>
     var defaultpage = document.getElementById("defaultpage");
 
     function gototeam(id) {
-        fetch("?catch=" + id + "&no=NO" + id)
-            .then(response => response.json())
-            .then(data => gototeamview(data))
-    }
-
-    function gototeamview(data) {
-        var op = 0;
-
         defaultpage.style.display = "none";
         defaultsub.style.display = "none";
         viewer.style.display = "block";
         subviewer.style.display = "block";
         viewer.innerHTML = "";
         subviewer.innerHTML = "";
+        fetch("?catch=" + id + "&no=NO" + id)
+            .then(response => response.json())
+            .then(data => gototeamview(data))
+    }
+
+    function gototeamview(data) {
+        console.log(data)
+        if(data==0){
+            backtodefault();
+            return;
+        }
+        var op = 0;
 
         backbutton = document.createElement("p");
         backbutton.innerHTML = '<返回';

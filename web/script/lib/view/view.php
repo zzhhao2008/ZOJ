@@ -264,6 +264,10 @@ body::before{
     background: $subbackcolor;
 }
 
+.active-item{
+    border-bottom: 2px solid $activecolor;
+}
+
 CSS;
     }
 }
