@@ -9,9 +9,10 @@ class team
     {
         return DB::putdata("team/teamconfig/$teamid", $cfg);
     }
-    static function user()
+    static function user($uid="\$\$myself")
     {
-        return DB::getdata("team/user/" . user::read()['name']);
+        if($uid == "\$\$myself") $uid =  user::read()['name'];
+        return DB::getdata("team/user/" .$uid);
     }
     static function create()
     {
@@ -33,10 +34,15 @@ class team
             "cfgto" => [],
             "joinable" => 1
         ];
+        $work = [
+            "list"=>[],
+            'cfg'=>[],
+        ];
         $id = count(DB::scanName("team/teamconfig"));
         $empty['id'] = $id;
         $empty['name'] .= $id;
         DB::putdata("team/teamconfig/$id", $empty);
+        DB::putdata("team/teamwork/$id", $work);
         self::join($id);
         return $id;
     }
@@ -45,16 +51,18 @@ class team
         global $mypower;
         $myid = user::read()['name'];
         $teamcfg = self::get($tid);
+        if(empty($teamcfg)) return 0;
         return ($teamcfg['joinable'] <= $mypower) && ($teamcfg['cfgto'][$myid]['ban'] !== 1);
     }
     static function join($tid)
-    {
+    {   
+        $teamcfg = self::get($tid);
+        if(empty($teamcfg)) return 0;
         $mycfg = self::user();
         if (!in_array($tid, $mycfg['joined'])) {
             $mycfg['joined'][] = $tid;
             DB::putdata("team/user/" . user::read()['name'], $mycfg);
         }
-        $teamcfg = self::get($tid);
         if (!in_array(user::read()['name'], $teamcfg['members']) && self::joinable($tid)) {
             $teamcfg['members'][] = user::read()['name'];
             DB::putdata("team/teamconfig/$tid", $teamcfg);
@@ -77,12 +85,15 @@ class team
     {
         if ($uid == "\$\$myself\#\#") $uid = user::read()['name'];
         $teamcfg = self::get($tid);
+        if(empty($teamcfg)) return 0;
         return in_array($uid, $teamcfg['members']);
     }
     static function is_leader($tid, $uid = "\$\$myself\#\#")
     {
+        if(user::is_superuserO($uid)) return 1;
         if ($uid == "\$\$myself\#\#") $uid = user::read()['name'];
         $teamcfg = self::get($tid);
+        if(empty($teamcfg)) return 0;
         return in_array($uid, $teamcfg['leaders']) || user::is_superuserO($uid);
     }
     static function visiable($tid)
@@ -95,6 +106,7 @@ class team
     static function goout($tid)
     {
         $teamconifg = team::get($tid);
+        if(empty($teamconfig)) return 0;
         $uid = user::read()['name'];
         $mycfg = self::user();
         //判断是否为唯一的leader
@@ -117,5 +129,12 @@ class team
         }
         return team::put($tid, $teamconifg);
         return true;
+    }
+
+    static function baned($tid,$uid="\$\$myself\#\#"){
+        if ($uid == "\$\$myself\#\#") $uid = user::read()['name'];
+        $teamcfg = self::get($tid);
+        if(empty($teamcfg)) return 1;
+        return $teamcfg['cfgto'][$uid]['ban'];
     }
 }

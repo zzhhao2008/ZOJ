@@ -1,7 +1,7 @@
 <?php return array (
   'nick' => 'zzh',
   'password' => 'c4d038b4bed09fdb1471ef51ec3a32cd',
-  'llt' => 1704378720,
+  'llt' => 1704724795,
   'power' => 1,
   'rating' => 100,
   'try' => 

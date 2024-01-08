@@ -154,6 +154,10 @@ class view
 HTML; 
         return $id;
     }
+    public static function chart($vals){
+        echo "<canvas id=\"chart-" . ($vals['id'] ? $vals['id'] : "") . "\"></canvas>";
+        echo "<script>showChart(`" . json_encode($vals) . "`)</script>";
+    }
 }
 $myThemeCfg=[];
 $myThemeID='light';

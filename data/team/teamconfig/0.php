@@ -16,6 +16,10 @@
   'rating' => 1000,
   'cfgto' => 
   array (
+    'test2' => 
+    array (
+      'ban' => 0,
+    ),
   ),
   'joinable' => 1,
   'id' => 0,

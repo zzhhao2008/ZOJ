@@ -3,6 +3,7 @@ $myteams = team::init();
 if ($_GET['no']) {
     if(!team::get($_GET['catch'])) echo 0;
     else if(!team::joined($_GET['catch'])) echo 0;
+    else if(team::baned($_GET['catch'])) echo 0;
     else echo json_encode(team::get($_GET['catch']));
     exit;
 }
@@ -51,6 +52,7 @@ view::header("团队控制台"); ?>
                             if (team::is_leader($v)) echo '<span class="badge rounded-pill bg-danger">
                             <a class="text-light" href="team/manage?id=' . $v . '">管理</a></span>';
                             if (team::joinable($v)) echo '<span class="badge rounded-pill bg-success">公开</span>';
+                            if (team::baned($v)) echo '<span class="badge rounded-pill bg-warning">已被Ban</span>';
                             ?>
                             <span class="badge rounded-pill bg-primary">成员:<?= count($tcfg['members']) ?></span>
                             <span class="badge rounded-pill bg-info"><?= ($tcfg['type']) ?></span>

@@ -14,6 +14,17 @@ class team_Manage
             $teamconifg['leaders'] = array_diff($teamconifg['leaders'], [$uid]);
             $teamconifg['leaders'] = array_values($teamconifg['leaders']);
         }
+        $mycfg = team::user($uid);
+        //判断是否为唯一的leader
+        if (count($teamconifg['leaders']) == 1) {
+            if ($uid === $teamconifg['leaders'][0]) {
+                return 0;
+            }
+        }
+        if (in_array($tid, $mycfg['joined'])) {
+            $mycfg['joined'] = array_diff($mycfg['joined'], [$tid]);
+            DB::putdata("team/user/$uid", $mycfg);
+        }
         return team::put($tid, $teamconifg);
     }
     public static function ban($tid, $uid)
@@ -32,7 +43,18 @@ class team_Manage
         $teamconifg['cfgto'][$uid]['ban'] = 0;
         return team::put($tid, $teamconifg);
     }
-    public static function change($tid,$new){
-        
+    public static function setleader($tid, $uid){
+        $teamconifg = team::get($tid);
+        if (!team::is_leader($tid)) return 0; //不是管理员
+        if (!in_array($uid, $teamconifg['leaders'])) {
+            $teamconifg['leaders'][] = $uid;
+        }
+        return team::put($tid, $teamconifg);
+    }
+    static function unsetleader($tid, $uid){
+        $teamconifg = team::get($tid);
+        if (!team::is_leader($tid)) return 0; //不是管理员
+        $teamconifg['leaders'] = array_diff($teamconifg['leaders'], [$uid]);
+        return team::put($tid, $teamconifg);
     }
 }

@@ -53,7 +53,7 @@ class user
         }
         if ($html == 1) {
             if ($link == 1) {
-                return "<a href='/visituser?uid=$username'>" . "<span class='text-" . user::NickColor($uprofile) . "'>" . $uprofile['nick'] . "</span>" . "</a>";
+                return "<a target='_blank' href='/visituser?uid=$username'>" . "<span class='text-" . user::NickColor($uprofile) . "'>" . $uprofile['nick'] . "</span>" . "</a>";
             }
             return  "<span class='text-" . user::NickColor($uprofile) . "'>" . $uprofile['nick'] . "</span>";
         }

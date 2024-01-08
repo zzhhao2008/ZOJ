@@ -9,6 +9,8 @@
 <script src="/static/js/view.js"></script>
 <script src="/static/js/src-min/ace.js"></script>
 <script src="/static/js/aceinit.js"></script>
+<script src="http://116.62.220.226/static/js/chart.js"></script>
+<script src="/static/js/chart-require.js"></script>
 <style>
     #<?=Router::getUri()?>naver{
         border-bottom: 2px solid red;
