@@ -1,41 +1,49 @@
+<?php
+$w_c = new work_member();
+$w_c->init();
+$w_c->view();
+?>
+
 <nav class="navbar fixed-top navtopc">
 	<div class="container">
 		<a class="navbar-brand" href="/">
 			<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
 			ZZHCode</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-			<span class="navbar-toggler-icon"></span>
+		<button class="navbar-toggler" >
+			<span class="navbar-toggler-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"></span>
 		</button>
 		<div class="offcanvas offcanvas-start navmainc" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 			<div class="offcanvas-header">
 				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-				<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
-				<?= $title ?></h5>
+					<img src="/icon.jpg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top rounded-circle">
+					<?= $title ?>
+				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
 			<div class="offcanvas-body">
 				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 					<li class="nav-item">
-						<a class="nav-link" id="contanctnaver" aria-current="page" href="/contanct"><?=view::icon("chat-dots-fill")?>交流</a>
+						<a class="nav-link" id="contanctnaver" aria-current="page" href="/contanct"><?= view::icon("chat-dots-fill") ?>交流</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="problemnaver" href="/problem"><?=view::icon("list")?>题目</a>
+						<a class="nav-link" id="problemnaver" href="/problem"><?= view::icon("list") ?>题目</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="contestnaver" href="/contest"><?=view::icon("award")?>比赛</a>
+						<a class="nav-link" id="contestnaver" href="/contest"><?= view::icon("award") ?>比赛</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="practicenaver" href="/practice"><?=view::icon("check2-all")?>练习</a>
+						<a class="nav-link" id="practicenaver" href="/practice"><?= view::icon("check2-all") ?>练习</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="submissionsnaver" href="/submissions"><?=view::icon("record2-fill")?>提交记录</a>
+						<a class="nav-link" id="submissionsnaver" href="/submissions"><?= view::icon("record2-fill") ?>提交记录</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="teamworknaver" href="/teamwork"><?=view::icon("microsoft-teams")?>团队</a>
+						<a class="nav-link" id="teamworknaver" href="/teamwork"><?= view::icon("microsoft-teams") ?>团队</a>
 					</li>
-					<!--li class="nav-item">
-						<a class="nav-link" id="chatnaver" aria-current="page" href="/chat"><?=view::icon("wechat")?>聊天</a>
-					</li-->
+					<li class="nav-item">
+						<a class="nav-link" id="teamworksnaver" href="#" <?=work::activitior()?>><?= view::icon("microsoft-teams"),view::icon("task") ?>任务列表</a>
+					</li>
+					<li class="border-top my-3"></li>
 					<?php
 					if (!in_array(Router::getUri(), $navitems)) {
 					?>
@@ -53,7 +61,7 @@
 							</ul>
 						</li>
 					<?php endif; ?>
-					<?php if (user::read()['name']!=='') : ?>
+					<?php if (user::read()['name'] !== '') : ?>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								工具
