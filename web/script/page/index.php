@@ -101,7 +101,7 @@
         <div class="abox">
             <h4>公告</h4>
             <ul>
-                <li><a class="text-danger" href="/contancting?cid=1-P1-test"><?= view::icon("exclamation-circle") ?>必读</a></li>
+                
             </ul>
         </div>
     </div>

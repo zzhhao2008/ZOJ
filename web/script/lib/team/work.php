@@ -40,6 +40,9 @@ class work_member
         $worklist = [];
         $mystatus = work::getMember($this->myuid);
         $teams = team::init()['joined'];
+        if(empty($teams)){
+            return;
+        }
         foreach ($teams as $tid) {
             if (!team::joined($tid) || team::baned($tid, $this->myuid)) continue;
             $temp = work::getWork($tid)['list'];

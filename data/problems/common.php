@@ -1,6 +1,6 @@
 <?php return array (
-  'totalcnt' => 15,
-  'Ccnt' => 6,
+  'totalcnt' => 9,
+  'Ccnt' => 1,
   'Pcnt' => 8,
-  'Scnt' => 1,
+  'Scnt' => 0,
 );?>

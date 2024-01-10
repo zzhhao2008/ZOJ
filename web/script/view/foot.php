@@ -1,6 +1,6 @@
 <div class="container footbar">
     <hr class="hr">
-    Version 5.2.3.9(2023-12-30) ZSVZZH
+    V 1.0.0 I
 </div>
 <style>
     .footbar {
