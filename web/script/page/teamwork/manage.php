@@ -39,44 +39,42 @@ if ($_GET['quest']) {
             exit;
             break;
         case "ban":
-            if(team_Manage::ban($tid, $_GET['uid'])){
+            if (team_Manage::ban($tid, $_GET['uid'])) {
                 echo "ok";
-            }else{
+            } else {
                 echo "fail";
             }
             exit;
             break;
         case "unban":
-            if(team_Manage::unban($tid, $_GET['uid'])){
+            if (team_Manage::unban($tid, $_GET['uid'])) {
                 echo "ok";
             }
             exit;
             break;
         case "kickoff":
-            if(team_Manage::kickoff($tid, $_GET['uid'])){
+            if (team_Manage::kickoff($tid, $_GET['uid'])) {
                 echo "ok";
             }
             exit;
             break;
         case "setleader":
-            if(team_Manage::setleader($tid, $_GET['uid'])){
-                echo "ok";
-        }
-            exit;
-            break;
-        case "unsetleader":
-            if(team_Manage::unsetleader($tid, $_GET['uid'])){
+            if (team_Manage::setleader($tid, $_GET['uid'])) {
                 echo "ok";
             }
             exit;
             break;
-
-
+        case "unsetleader":
+            if (team_Manage::unsetleader($tid, $_GET['uid'])) {
+                echo "ok";
+            }
+            exit;
+            break;
     }
 }
 
 
-if ($_POST) {
+if ($_POST['name']) {
     //将POST中的name desc joinable赋值给$teamcfg
     $teamcfg['name'] = $_POST['name'];
     $teamcfg['description'] = $_POST['desc'];
@@ -86,6 +84,17 @@ if ($_POST) {
         exit;
     } else {
         view::alert("保存失败！");
+    }
+}
+$tasks = work::getWork($tid);
+if($_POST['tasks']){
+    $tasks['list'] = $_POST['tasks'];
+    //var_dump($tasks);
+    if(work::putWork($tid,$tasks)){
+        jsjump("?id=$tid");
+        exit;
+    }else{
+        view::message("保存失败！");
     }
 }
 
@@ -123,7 +132,40 @@ view::header("团队管理-" . $teamcfg['name']);
 
         </div>
         <div id="taskbox">
+            <!--一个Form表单，对$task中各项的['desc']进行编辑，以及删除和添加项-->
+            <form onclick="changed=1" method="post">
+                <?php
+                $nextid=0;
+                foreach ($tasks['list'] as $k => $v) {
+                    $k = intval($v['id']) ;
+                    $nextid = max($nextid, $k);
+                ?>
+                    <div id="task-<?=$k?>">
+                        <label for="desc" class="form-label">任务:<?=$k?><button class="btn btn-danger" onclick="document.getElementById('task-<?=$k?>').remove()">X</button></label>
+                        <input class="form-control" name="tasks[<?= $k ?>][desc]" value="<?= $v['desc'] ?>">
+                    </div>
+                    <input type="hidden" name="tasks[<?= $k ?>][id]" value="<?= $v['id'] ?>">
+                <?php
+                }
+                ?>
+                <div class="moretask"></div>
+                <button onclick="addtask()" type="button" class="btn btn-success">添加</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </form>
+            <script>
+                var nexttaskid = <?= $nextid+1 ?>;
 
+                function addtask() {
+                    box = document.querySelector(".moretask");
+                    box.innerHTML += `
+                    <div id="task-`+nexttaskid+`">
+                        <label for="desc" class="form-label">任务:`+nexttaskid+`<button class="btn btn-danger" onclick="document.getElementById('task-`+nexttaskid+`').remove()">X</button></label>
+                        <input class="form-control" name="tasks[`+nexttaskid+`][desc]" value="新任务描述">
+                        <input type="hidden" name="tasks[`+nexttaskid+`][id]" value="`+nexttaskid+`">
+                    </div>`;
+                    nexttaskid++;
+                }
+            </script>
         </div>
     </div>
 </div>
@@ -187,13 +229,11 @@ view::header("团队管理-" . $teamcfg['name']);
                     contdiv = document.createElement("div");
 
                     nickline = document.createElement("h5"); //NICK
-                    nickline.innerHTML = thisone.nicklink+"<small>("+thisone.id+")</small>";
+                    nickline.innerHTML = thisone.nicklink + "<small>(" + thisone.id + ")</small>";
                     contdiv.appendChild(nickline);
 
                     hr = document.createElement("hr");
                     contdiv.appendChild(hr);
-
-
 
                     if (thisone.id != `<?= addslashes(user::read()['name']) ?>`) {
                         if (thisone.leader == 1) {
@@ -236,7 +276,7 @@ view::header("团队管理-" . $teamcfg['name']);
                             kickoff(thisone.id);
                         }
                         contdiv.appendChild(leaderline);
-                    }else{
+                    } else {
                         leaderline = document.createElement("span"); //KickOFF
                         leaderline.innerHTML = `<span class="badge rounded-pill bg-dark">我自己</span>`;
                         contdiv.appendChild(leaderline);
@@ -257,10 +297,10 @@ view::header("团队管理-" . $teamcfg['name']);
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     if (this.responseText == "ok") {
-                        ShowMessage("SYS", "已成功将"+id+"踢出团队", "Now");
+                        ShowMessage("SYS", "已成功将" + id + "踢出团队", "Now");
                         loadmember();
                     } else {
-                        ShowMessage("SYS", "踢出成员"+id+"失败", "Now");
+                        ShowMessage("SYS", "踢出成员" + id + "失败", "Now");
                     }
                 }
             }
@@ -274,10 +314,10 @@ view::header("团队管理-" . $teamcfg['name']);
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText == "ok") {
-                    ShowMessage("SYS", "已成功设置"+id+"为团队负责人", "Now");
+                    ShowMessage("SYS", "已成功设置" + id + "为团队负责人", "Now");
                     loadmember();
                 } else {
-                    ShowMessage("SYS", "设置团队负责人"+id+"失败", "Now");
+                    ShowMessage("SYS", "设置团队负责人" + id + "失败", "Now");
                 }
             }
         }
@@ -290,10 +330,10 @@ view::header("团队管理-" . $teamcfg['name']);
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText == "ok") {
-                    ShowMessage("SYS", "已成功取消"+id+"的团队负责人身份", "Now");
+                    ShowMessage("SYS", "已成功取消" + id + "的团队负责人身份", "Now");
                     loadmember();
                 } else {
-                    ShowMessage("SYS", "取消"+id+"团队负责人身份失败", "Now");
+                    ShowMessage("SYS", "取消" + id + "团队负责人身份失败", "Now");
                 }
             }
         }
@@ -306,10 +346,10 @@ view::header("团队管理-" . $teamcfg['name']);
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText == "ok") {
-                    ShowMessage("SYS", "已成功封禁"+id+"", "Now");
+                    ShowMessage("SYS", "已成功封禁" + id + "", "Now");
                     loadmember();
                 } else {
-                    ShowMessage("SYS", "封禁"+id+"失败", "Now");
+                    ShowMessage("SYS", "封禁" + id + "失败", "Now");
                 }
             }
         }
@@ -322,10 +362,10 @@ view::header("团队管理-" . $teamcfg['name']);
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText == "ok") {
-                    ShowMessage("SYS", "已成功解封"+id+"", "Now");
+                    ShowMessage("SYS", "已成功解封" + id + "", "Now");
                     loadmember();
                 } else {
-                    ShowMessage("SYS", "解封成员"+id+"失败", "Now");
+                    ShowMessage("SYS", "解封成员" + id + "失败", "Now");
                 }
             }
         }

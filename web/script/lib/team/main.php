@@ -35,7 +35,9 @@ class team
             "joinable" => 1
         ];
         $work = [
-            "list"=>[],
+            "list"=>[
+                ['id'=>1,"desc"=>"默认任务"]
+            ],
             'cfg'=>[],
         ];
         $id = count(DB::scanName("team/teamconfig"));
