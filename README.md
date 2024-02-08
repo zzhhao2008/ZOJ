@@ -1,6 +1,6 @@
 # ZOJ
 ZSV Online Judge
-预览：http://116.62.220.226:82/
+预览：https://oj.zsvstudio.top/
 
 ## 欢迎！
 这是由ZSV开发和维护的ZOJ项目
